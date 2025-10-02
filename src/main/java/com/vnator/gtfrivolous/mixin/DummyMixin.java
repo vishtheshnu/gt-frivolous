@@ -1,4 +1,4 @@
-package com.example.examplemod.mixin;
+package com.vnator.gtfrivolous.mixin;
 
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 
