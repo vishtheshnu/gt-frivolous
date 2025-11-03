@@ -9,6 +9,9 @@ import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 import com.gregtechceu.gtceu.api.sound.SoundEntry;
 
+import com.vnator.gtfrivolous.common.data.FrivolousBlocks;
+import com.vnator.gtfrivolous.common.data.FrivolousMachines;
+import com.vnator.gtfrivolous.common.data.materials.FrivolousMaterials;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -26,14 +29,15 @@ import org.apache.logging.log4j.Logger;
 @SuppressWarnings("removal")
 public class GTFrivolous {
 
-    public static final String MOD_ID = "fluidmachines";
+    public static final String MOD_ID = "gtfrivolous";
     public static final Logger LOGGER = LogManager.getLogger();
     public static GTRegistrate REGISTRATE = GTRegistrate.create(GTFrivolous.MOD_ID);
 
     public GTFrivolous() {
+        init();
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        modEventBus.register();
+        modEventBus.register(this);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
 
@@ -51,6 +55,10 @@ public class GTFrivolous {
         MinecraftForge.EVENT_BUS.register(this);
 
         REGISTRATE.registerRegistrate();
+    }
+
+    private void init() {
+        FrivolousBlocks.init();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -92,7 +100,7 @@ public class GTFrivolous {
      * @param event
      */
     private void addMaterials(MaterialEvent event) {
-        // CustomMaterials.init();
+        FrivolousMaterials.register();
     }
 
     /**
@@ -101,7 +109,7 @@ public class GTFrivolous {
      * @param event
      */
     private void modifyMaterials(PostMaterialEvent event) {
-        // CustomMaterials.modify();
+        FrivolousMaterials.modify();
     }
 
     /**
@@ -121,7 +129,7 @@ public class GTFrivolous {
      * @param event
      */
     private void registerMachines(GTCEuAPI.RegisterEvent<ResourceLocation, MachineDefinition> event) {
-        // CustomMachines.init();
+        FrivolousMachines.init();
     }
 
     /**

@@ -129,7 +129,7 @@ legacyForge {
 }
 jar {
     manifest.attributes([
-            "MixinConfigs": "examplemod.mixins.json"
+            "MixinConfigs": "gtfrivolous.mixins.json"
     ])
 }
 
@@ -157,6 +157,11 @@ dependencies {
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    // botania
+    modImplementation "vazkii.botania:Botania:${botania_version}"
+    modRuntimeOnly "vazkii.patchouli:Patchouli:${patchouli_version}"
+    modImplementation "top.theillusivec4.curios:curios-forge:${curios_version}"
 }
 
 // See com.example.examplemod.mixin.DummyMixin for information about mixins
@@ -176,6 +181,7 @@ tasks.named('processResources', ProcessResources).configure {
             "forge_version": forge_version.split("\\.")[0], // only specify major version of forge
             "minecraft_version": minecraft_version,
             "gtceu_version": gtceu_version,
+            "botania_version": botania_version,
     ]
     inputs.properties(properties)
 

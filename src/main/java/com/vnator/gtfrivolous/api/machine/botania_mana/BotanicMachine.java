@@ -1,0 +1,114 @@
+package com.vnator.gtfrivolous.api.machine.botania_mana;
+
+import com.gregtechceu.gtceu.api.capability.recipe.IO;
+import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
+import com.gregtechceu.gtceu.api.machine.MetaMachine;
+import com.gregtechceu.gtceu.api.machine.trait.RecipeHandlerList;
+import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
+import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.ManaNetwork;
+import vazkii.botania.api.mana.ManaPool;
+import vazkii.botania.common.block.BotaniaBlocks;
+
+public class BotanicMachine extends ManaPoolBindableMachine{
+
+    private static final int LINK_RANGE = 10;
+    private static final double MANA_CONVERSION_RATE = 1; // mana -> 1 EU
+    protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(BotanicMachine.class,
+            ManaPoolBindableMachine.MANAGED_FIELD_HOLDER);
+
+    @Persisted
+    private int mana;
+    private final int maxMana;
+
+    @Nullable private ManaEnergyRecipeHandler manaEnergy;
+
+    public BotanicMachine(IMachineBlockEntity holder, int tier) {
+        super(holder, tier);
+        maxMana = 1000 * (int)Math.pow(4, tier);
+    }
+
+    @Override
+    public @NotNull ManagedFieldHolder getFieldHolder() {
+        return MANAGED_FIELD_HOLDER;
+    }
+
+    //////////////////////////////////////
+    // ****** Recipe Logic ******//
+    //////////////////////////////////////
+    @Override
+    public void onLoad() {
+        super.onLoad();
+
+        manaEnergy = new ManaEnergyRecipeHandler(this, MANA_CONVERSION_RATE);
+        addHandlerList(RecipeHandlerList.of(IO.IN, manaEnergy));
+        subscribeServerTick(this::drawManaFromPool);
+
+        if(bindingPos == null || !isValidBinding()) {
+            setBindingPos(findClosestTarget());
+        }
+    }
+
+    //////////////////////////////////////
+    // ****** Botania Logic ******//
+    //////////////////////////////////////
+
+    public void drawManaFromPool() {
+        ManaPool pool = findBoundTile();
+        if (pool != null) {
+            int manaInPool = pool.getCurrentMana();
+            int manaMissing = getMaxMana() - mana;
+            int manaToRemove = Math.min(manaMissing, manaInPool);
+            pool.receiveMana(-manaToRemove);
+            addMana(manaToRemove);
+        }
+    }
+
+    @Override
+    public int getBindingRadius() {
+        return LINK_RANGE;
+    }
+
+    @Override
+    public @Nullable BlockPos findClosestTarget() {
+        ManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
+        var closestPool = network.getClosestPool(getPos(), getLevel(), getBindingRadius());
+        return closestPool == null ? null : closestPool.getManaReceiverPos();
+    }
+
+    @Override
+    public int getMana() {
+        return mana;
+    }
+
+    @Override
+    public void addMana(int mana) {
+        this.mana = Mth.clamp(this.mana + mana, 0, getMaxMana());
+        onChanged();
+    }
+
+    @Override
+    public int getMaxMana() {
+        return maxMana;
+    }
+
+    @Override
+    public int getColor() {
+        return switch (tier) {
+            case 1 -> 0x000FFF; //blue, I guess
+            case 2 -> 0x00FF0F; //green, sort of
+            default -> 0x000FFF;
+        };
+    }
+
+    @Override
+    public ItemStack getDefaultHudIcon() {
+        return new ItemStack(BotaniaBlocks.manaPool.asItem());
+    }
+}
