@@ -12,6 +12,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+
 import java.util.function.Supplier;
 
 import static com.vnator.gtfrivolous.GTFrivolous.REGISTRATE;
@@ -19,7 +22,7 @@ import static com.vnator.gtfrivolous.GTFrivolous.REGISTRATE;
 public class FrivolousBlocks {
 
     static {
-        // REGISTRATE.creativeModeTab(() -> ); // TODO pass in creative mode tab for this mod
+        REGISTRATE.creativeModeTab(() -> CreativeModeTabs.GT_FRIVOLOUS);
     }
 
     public static final BlockEntry<Block> CASING_MANASTEEL = createCasingBlock("manasteel_machine_casing",

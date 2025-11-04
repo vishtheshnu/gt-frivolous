@@ -139,7 +139,7 @@ public abstract class ManaPoolBindableMachine extends SimpleTieredMachine implem
         }
 
         public void renderHUD(GuiGraphics gui, Minecraft mc, int minLeft, int minRight, int minDown) {
-            String name = I18n.get(flower.getBlockState().getBlock().getDescriptionId());
+            String name = I18n.get(flower.getDefinition().getName());
             int color = flower.getColor();
 
             int centerX = mc.getWindow().getGuiScaledWidth() / 2;

@@ -1,5 +1,6 @@
 package com.vnator.gtfrivolous;
 
+import com.google.common.base.Suppliers;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialEvent;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialRegistryEvent;
@@ -15,7 +16,10 @@ import com.vnator.gtfrivolous.common.data.materials.FrivolousMaterials;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -24,6 +28,18 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import vazkii.botania.api.BotaniaForgeClientCapabilities;
+import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.forge.CapabilityUtil;
+import vazkii.botania.forge.client.ForgeClientInitializer;
+
+import java.util.Collections;
+import java.util.IdentityHashMap;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod(GTFrivolous.MOD_ID)
 @SuppressWarnings("removal")
@@ -61,6 +77,26 @@ public class GTFrivolous {
         FrivolousBlocks.init();
     }
 
+    private static final Supplier<Map<BlockEntityType<?>, Function<BlockEntity, WandHUD>>> WAND_HUD = Suppliers.memoize(() -> {
+        var ret = new IdentityHashMap<BlockEntityType<?>, Function<BlockEntity, WandHUD>>();
+        FrivolousMachines.registerBotaniaWandHudCaps((factory, types) -> {
+            for (var type : types) {
+                ret.put(type, factory);
+            }
+        });
+        return Collections.unmodifiableMap(ret);
+    });
+
+    private void attachBeCapabilities(AttachCapabilitiesEvent<BlockEntity> e) {
+        var be = e.getObject();
+
+        var makeWandHud = WAND_HUD.get().get(be.getType());
+        if (makeWandHud != null) {
+            e.addCapability(prefix("wand_hud"),
+                    CapabilityUtil.makeProvider(BotaniaForgeClientCapabilities.WAND_HUD, makeWandHud.apply(be)));
+        }
+    }
+
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             LOGGER.info("Hello from common setup! This is *after* registries are done, so we can do this:");
@@ -69,7 +105,9 @@ public class GTFrivolous {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        LOGGER.info("Hey, we're on Minecraft version {}!", Minecraft.getInstance().getLaunchedVersion());
+        var bus = MinecraftForge.EVENT_BUS;
+
+        bus.addGenericListener(BlockEntity.class, this::attachBeCapabilities);
     }
 
     /**

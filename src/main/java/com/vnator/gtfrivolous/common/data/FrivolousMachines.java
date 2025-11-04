@@ -2,9 +2,11 @@ package com.vnator.gtfrivolous.common.data;
 
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
+import com.gregtechceu.gtceu.api.blockentity.MetaMachineBlockEntity;
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.ItemRecipeCapability;
 import com.gregtechceu.gtceu.api.data.RotationState;
+import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
@@ -13,10 +15,17 @@ import com.gregtechceu.gtceu.common.data.machines.GTMachineUtils;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
 import com.vnator.gtfrivolous.GTFrivolous;
 import com.vnator.gtfrivolous.api.machine.botania_mana.BotanicMachine;
+import com.vnator.gtfrivolous.api.machine.botania_mana.ManaPoolBindableMachine;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * Performs registration of this addon's machines
@@ -66,6 +75,27 @@ public class FrivolousMachines {
                     .add(Component.translatable("gtceu.universal.tooltip.fluid_storage_capacity",
                             FormattingUtil.formatNumbers(tankCapacity)));
         return tooltipComponents.toArray(Component[]::new);
+    }
+
+    public static void registerBotaniaWandHudCaps(BotaniaBlockEntities.BECapConsumer<WandHUD> consumer) {
+
+        consumer.accept(be ->
+                new ManaPoolBindableMachine.BindableFlowerWandHud<>(extractBotanicMachineFromEntity(be)),
+                getBlockEntityTypes(botanicCentrifuge));
+    }
+
+    private static ManaPoolBindableMachine extractBotanicMachineFromEntity(BlockEntity entity) {
+        MetaMachineBlockEntity metaMachine = (MetaMachineBlockEntity) entity;
+        metaMachine.getDefinition().getName();
+        ManaPoolBindableMachine botanicMachine = (ManaPoolBindableMachine) metaMachine.getMetaMachine();
+        return botanicMachine;
+    }
+
+    private static BlockEntityType<?>[] getBlockEntityTypes(MachineDefinition[] defs) {
+        return Stream.of(defs)
+                .filter(Objects::nonNull)
+                .map(MachineDefinition::getBlockEntityType)
+                .toArray(BlockEntityType[]::new);
     }
 
     public static void init() {
