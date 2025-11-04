@@ -3,10 +3,10 @@ package com.vnator.gtfrivolous.api.machine.botania_mana;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeHandlerList;
+import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -22,8 +22,9 @@ public class BotanicMachine extends ManaPoolBindableMachine{
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(BotanicMachine.class,
             ManaPoolBindableMachine.MANAGED_FIELD_HOLDER);
 
-    @Persisted
+    @Persisted @DescSynced
     private int mana;
+    @Persisted @DescSynced
     private final int maxMana;
 
     @Nullable private ManaEnergyRecipeHandler manaEnergy;
@@ -66,6 +67,9 @@ public class BotanicMachine extends ManaPoolBindableMachine{
             int manaToRemove = Math.min(manaMissing, manaInPool);
             pool.receiveMana(-manaToRemove);
             addMana(manaToRemove);
+            if(manaToRemove != 0) {
+                System.out.println("Drawing mana from pool: "+manaToRemove);
+            }
         }
     }
 
@@ -88,8 +92,9 @@ public class BotanicMachine extends ManaPoolBindableMachine{
 
     @Override
     public void addMana(int mana) {
-        this.mana = Mth.clamp(this.mana + mana, 0, getMaxMana());
+        this.mana = Math.min(getMaxMana(), this.mana + mana);
         onChanged();
+        notifyBlockUpdate();
     }
 
     @Override

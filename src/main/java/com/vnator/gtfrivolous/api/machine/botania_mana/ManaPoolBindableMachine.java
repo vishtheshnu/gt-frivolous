@@ -2,6 +2,7 @@ package com.vnator.gtfrivolous.api.machine.botania_mana;
 
 import com.gregtechceu.gtceu.api.machine.*;
 import com.gregtechceu.gtceu.common.data.machines.GTMachineUtils;
+import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 import net.minecraft.client.Minecraft;
@@ -28,8 +29,8 @@ public abstract class ManaPoolBindableMachine extends SimpleTieredMachine implem
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(ManaPoolBindableMachine.class,
             SimpleTieredMachine.MANAGED_FIELD_HOLDER);
 
-    @Persisted
-    protected @Nullable BlockPos bindingPos = null;
+    @Persisted @DescSynced
+    protected @Nullable BlockPos bindingPos;
 
     public ManaPoolBindableMachine(IMachineBlockEntity holder, int tier, Object... args) {
         super(holder, tier, GTMachineUtils.defaultTankSizeFunction, args);

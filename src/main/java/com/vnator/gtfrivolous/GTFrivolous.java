@@ -2,23 +2,30 @@ package com.vnator.gtfrivolous;
 
 import com.google.common.base.Suppliers;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
+import com.gregtechceu.gtceu.api.blockentity.MetaMachineBlockEntity;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialEvent;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialRegistryEvent;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.PostMaterialEvent;
+import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 import com.gregtechceu.gtceu.api.sound.SoundEntry;
 
+import com.vnator.gtfrivolous.api.machine.botania_mana.ManaPoolBindableMachine;
 import com.vnator.gtfrivolous.common.data.FrivolousBlocks;
 import com.vnator.gtfrivolous.common.data.FrivolousMachines;
 import com.vnator.gtfrivolous.common.data.materials.FrivolousMaterials;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -28,6 +35,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaForgeClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.forge.CapabilityUtil;
@@ -89,12 +97,30 @@ public class GTFrivolous {
 
     private void attachBeCapabilities(AttachCapabilitiesEvent<BlockEntity> e) {
         var be = e.getObject();
+        ICapabilityProvider cap = new ICapabilityProvider() {
 
-        var makeWandHud = WAND_HUD.get().get(be.getType());
-        if (makeWandHud != null) {
-            e.addCapability(prefix("wand_hud"),
-                    CapabilityUtil.makeProvider(BotaniaForgeClientCapabilities.WAND_HUD, makeWandHud.apply(be)));
+            private LazyOptional<WandHUD> lazyCap = null;
+
+            public LazyOptional<WandHUD> getLazyCap(){
+                if(lazyCap == null) {
+                    var makeWandHud = WAND_HUD.get().get(be.getType());
+                    if (makeWandHud != null) {
+                        lazyCap = LazyOptional.of(() -> makeWandHud.apply(be));
+                    } else {
+                        lazyCap = LazyOptional.empty();
+                    }
+                }
+                return lazyCap;
+            }
+
+            public <T> @NotNull LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
+                return BotaniaForgeClientCapabilities.WAND_HUD.orEmpty(cap, getLazyCap());
+            }
+        };
+        if (be instanceof MetaMachineBlockEntity) {
+            e.addCapability(prefix("wand_hud"), cap);
         }
+
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
