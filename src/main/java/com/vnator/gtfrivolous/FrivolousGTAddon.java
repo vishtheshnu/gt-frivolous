@@ -4,8 +4,9 @@ import com.gregtechceu.gtceu.api.addon.GTAddon;
 import com.gregtechceu.gtceu.api.addon.IGTAddon;
 import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 
-import com.vnator.gtfrivolous.common.data.materials.FrivolousElements;
 import net.minecraft.data.recipes.FinishedRecipe;
+
+import com.vnator.gtfrivolous.common.data.materials.FrivolousElements;
 
 import java.util.function.Consumer;
 

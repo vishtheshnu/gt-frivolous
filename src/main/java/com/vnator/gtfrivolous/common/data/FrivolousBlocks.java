@@ -3,17 +3,16 @@ package com.vnator.gtfrivolous.common.data;
 import com.gregtechceu.gtceu.common.data.models.GTModels;
 import com.gregtechceu.gtceu.data.recipe.CustomTags;
 
-import com.vnator.gtfrivolous.GTFrivolous;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
-import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import com.vnator.gtfrivolous.GTFrivolous;
 
 import java.util.function.Supplier;
 

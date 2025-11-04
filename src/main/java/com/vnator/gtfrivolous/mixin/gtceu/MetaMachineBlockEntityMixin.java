@@ -2,10 +2,12 @@ package com.vnator.gtfrivolous.mixin.gtceu;
 
 import com.gregtechceu.gtceu.api.blockentity.MetaMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
-import com.vnator.gtfrivolous.api.machine.botania_mana.ManaPoolBindableMachine;
+
 import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+
+import com.vnator.gtfrivolous.api.machine.botania_mana.ManaPoolBindableMachine;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Debug;
@@ -18,6 +20,7 @@ import vazkii.botania.api.BotaniaForgeClientCapabilities;
 @Debug(export = true)
 @Mixin(value = MetaMachineBlockEntity.class, remap = false)
 public class MetaMachineBlockEntityMixin {
+
     // Specifically target the getCapability(Machine, Capability, Direction) method
     @Inject(method = "getCapability(Lcom/gregtechceu/gtceu/api/machine/MetaMachine;Lnet/minecraftforge/common/capabilities/Capability;Lnet/minecraft/core/Direction;)Lnet/minecraftforge/common/util/LazyOptional;",
             at = @At("TAIL"),

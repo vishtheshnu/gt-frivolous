@@ -2,9 +2,11 @@ package com.vnator.gtfrivolous.api.machine.botania_mana;
 
 import com.gregtechceu.gtceu.api.machine.*;
 import com.gregtechceu.gtceu.common.data.machines.GTMachineUtils;
+
 import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
@@ -13,6 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPIClient;
@@ -26,10 +29,12 @@ import java.util.Objects;
 
 public abstract class ManaPoolBindableMachine extends SimpleTieredMachine implements WandBindable {
 
-    protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(ManaPoolBindableMachine.class,
+    protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
+            ManaPoolBindableMachine.class,
             SimpleTieredMachine.MANAGED_FIELD_HOLDER);
 
-    @Persisted @DescSynced
+    @Persisted
+    @DescSynced
     protected @Nullable BlockPos bindingPos;
 
     public ManaPoolBindableMachine(IMachineBlockEntity holder, int tier, Object... args) {
@@ -93,7 +98,8 @@ public abstract class ManaPoolBindableMachine extends SimpleTieredMachine implem
 
     public boolean wouldBeValidBinding(@Nullable BlockPos pos) {
         var level = getLevel();
-        if (level == null || pos == null || !level.isLoaded(pos) || MathHelper.distSqr(getPos(), pos) > (long) getBindingRadius() * getBindingRadius()) {
+        if (level == null || pos == null || !level.isLoaded(pos) ||
+                MathHelper.distSqr(getPos(), pos) > (long) getBindingRadius() * getBindingRadius()) {
             return false;
         } else {
             return findBindCandidateAt(pos) != null;
@@ -120,7 +126,7 @@ public abstract class ManaPoolBindableMachine extends SimpleTieredMachine implem
 
     @Override
     public @Nullable BlockPos getBinding() {
-        //Used for Wand of the Forest overlays; only return the binding if it's valid.
+        // Used for Wand of the Forest overlays; only return the binding if it's valid.
         return isValidBinding() ? bindingPos : null;
     }
 
@@ -133,6 +139,7 @@ public abstract class ManaPoolBindableMachine extends SimpleTieredMachine implem
     }
 
     public static class BindableFlowerWandHud<F extends ManaPoolBindableMachine> implements WandHUD {
+
         protected final F flower;
 
         public BindableFlowerWandHud(F flower) {
@@ -152,7 +159,8 @@ public abstract class ManaPoolBindableMachine extends SimpleTieredMachine implem
             left = Math.max(left, minLeft);
             right = Math.max(right, minRight);
 
-            RenderHelper.renderHUDBox(gui, centerX - left, centerY + 8, centerX + right, centerY + Math.max(30, minDown));
+            RenderHelper.renderHUDBox(gui, centerX - left, centerY + 8, centerX + right,
+                    centerY + Math.max(30, minDown));
 
             BotaniaAPIClient.instance().drawComplexManaHUD(gui, color, flower.getMana(), flower.getMaxMana(),
                     name, flower.getHudIcon(), flower.isValidBinding());
@@ -163,5 +171,4 @@ public abstract class ManaPoolBindableMachine extends SimpleTieredMachine implem
             renderHUD(gui, mc, 0, 0, 0);
         }
     }
-
 }

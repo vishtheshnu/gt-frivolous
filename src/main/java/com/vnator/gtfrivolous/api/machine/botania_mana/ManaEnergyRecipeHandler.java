@@ -7,6 +7,7 @@ import com.gregtechceu.gtceu.api.capability.recipe.RecipeCapability;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.ingredient.EnergyStack;
 import com.gregtechceu.gtceu.utils.GTMath;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class ManaEnergyRecipeHandler implements IRecipeHandler<EnergyStack> {
                     // Producing Mana
                     // TODO hook up actual mana pool in machine/multiblock when time to create
                     if (currentMana + stackMana > machine.getMaxMana()) {
-                       continue;
+                        continue;
                     } else {
                         if (!simulate) {
                             machine.addMana(stackMana);
@@ -71,7 +72,7 @@ public class ManaEnergyRecipeHandler implements IRecipeHandler<EnergyStack> {
 
     @Override
     public double getTotalContentAmount() {
-        return (long)(machine.getMana() * conversionRate);
+        return (long) (machine.getMana() * conversionRate);
     }
 
     @Override

@@ -4,21 +4,21 @@ import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.blockentity.MetaMachineBlockEntity;
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
-import com.gregtechceu.gtceu.api.capability.recipe.ItemRecipeCapability;
 import com.gregtechceu.gtceu.api.data.RotationState;
-import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.common.data.machines.GTMachineUtils;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
-import com.vnator.gtfrivolous.GTFrivolous;
-import com.vnator.gtfrivolous.api.machine.botania_mana.BotanicMachine;
-import com.vnator.gtfrivolous.api.machine.botania_mana.ManaPoolBindableMachine;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+
+import com.vnator.gtfrivolous.GTFrivolous;
+import com.vnator.gtfrivolous.api.machine.botania_mana.BotanicMachine;
+import com.vnator.gtfrivolous.api.machine.botania_mana.ManaPoolBindableMachine;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
@@ -31,6 +31,7 @@ import java.util.stream.Stream;
  * Performs registration of this addon's machines
  */
 public class FrivolousMachines {
+
     static {
         GTFrivolous.REGISTRATE.creativeModeTab(() -> CreativeModeTabs.GT_FRIVOLOUS);
     }
@@ -48,8 +49,7 @@ public class FrivolousMachines {
                     .workableTieredHullModel(GTCEu.id("block/machines/centrifuge"))
                     .tooltips(tooltipsBotanic(tier, GTRecipeTypes.CENTRIFUGE_RECIPES, true))
                     .register(),
-            1, 2
-    );
+            1, 2);
 
     public static Component[] tooltipsBotanic(int tier, GTRecipeType recipeType, boolean input) {
         List<Component> tooltipComponents = new ArrayList<>();
@@ -78,9 +78,7 @@ public class FrivolousMachines {
     }
 
     public static void registerBotaniaWandHudCaps(BotaniaBlockEntities.BECapConsumer<WandHUD> consumer) {
-
-        consumer.accept(be ->
-                new ManaPoolBindableMachine.BindableFlowerWandHud<>(extractBotanicMachineFromEntity(be)),
+        consumer.accept(be -> new ManaPoolBindableMachine.BindableFlowerWandHud<>(extractBotanicMachineFromEntity(be)),
                 getBlockEntityTypes(botanicCentrifuge));
     }
 
@@ -98,7 +96,5 @@ public class FrivolousMachines {
                 .toArray(BlockEntityType[]::new);
     }
 
-    public static void init() {
-
-    }
+    public static void init() {}
 }

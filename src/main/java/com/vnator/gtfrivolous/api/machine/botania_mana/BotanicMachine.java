@@ -3,11 +3,14 @@ package com.vnator.gtfrivolous.api.machine.botania_mana;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeHandlerList;
+
 import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
@@ -15,23 +18,26 @@ import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.common.block.BotaniaBlocks;
 
-public class BotanicMachine extends ManaPoolBindableMachine{
+public class BotanicMachine extends ManaPoolBindableMachine {
 
     private static final int LINK_RANGE = 10;
     private static final double MANA_CONVERSION_RATE = 1; // mana -> 1 EU
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(BotanicMachine.class,
             ManaPoolBindableMachine.MANAGED_FIELD_HOLDER);
 
-    @Persisted @DescSynced
+    @Persisted
+    @DescSynced
     private int mana;
-    @Persisted @DescSynced
+    @Persisted
+    @DescSynced
     private final int maxMana;
 
-    @Nullable private ManaEnergyRecipeHandler manaEnergy;
+    @Nullable
+    private ManaEnergyRecipeHandler manaEnergy;
 
     public BotanicMachine(IMachineBlockEntity holder, int tier) {
         super(holder, tier);
-        maxMana = 1000 * (int)Math.pow(4, tier);
+        maxMana = 1000 * (int) Math.pow(4, tier);
     }
 
     @Override
@@ -50,7 +56,7 @@ public class BotanicMachine extends ManaPoolBindableMachine{
         addHandlerList(RecipeHandlerList.of(IO.IN, manaEnergy));
         subscribeServerTick(this::drawManaFromPool);
 
-        if(bindingPos == null || !isValidBinding()) {
+        if (bindingPos == null || !isValidBinding()) {
             setBindingPos(findClosestTarget());
         }
     }
@@ -67,8 +73,8 @@ public class BotanicMachine extends ManaPoolBindableMachine{
             int manaToRemove = Math.min(manaMissing, manaInPool);
             pool.receiveMana(-manaToRemove);
             addMana(manaToRemove);
-            if(manaToRemove != 0) {
-                System.out.println("Drawing mana from pool: "+manaToRemove);
+            if (manaToRemove != 0) {
+                System.out.println("Drawing mana from pool: " + manaToRemove);
             }
         }
     }
@@ -105,8 +111,8 @@ public class BotanicMachine extends ManaPoolBindableMachine{
     @Override
     public int getColor() {
         return switch (tier) {
-            case 1 -> 0x000FFF; //blue, I guess
-            case 2 -> 0x00FF0F; //green, sort of
+            case 1 -> 0x000FFF; // blue, I guess
+            case 2 -> 0x00FF0F; // green, sort of
             default -> 0x000FFF;
         };
     }

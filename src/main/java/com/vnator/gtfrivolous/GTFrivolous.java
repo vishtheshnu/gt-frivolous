@@ -1,22 +1,15 @@
 package com.vnator.gtfrivolous;
 
-import com.google.common.base.Suppliers;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.blockentity.MetaMachineBlockEntity;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialEvent;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.MaterialRegistryEvent;
 import com.gregtechceu.gtceu.api.data.chemical.material.event.PostMaterialEvent;
-import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 import com.gregtechceu.gtceu.api.sound.SoundEntry;
 
-import com.vnator.gtfrivolous.api.machine.botania_mana.ManaPoolBindableMachine;
-import com.vnator.gtfrivolous.common.data.FrivolousBlocks;
-import com.vnator.gtfrivolous.common.data.FrivolousMachines;
-import com.vnator.gtfrivolous.common.data.materials.FrivolousMaterials;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
@@ -33,13 +26,15 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
+import com.google.common.base.Suppliers;
+import com.vnator.gtfrivolous.common.data.FrivolousBlocks;
+import com.vnator.gtfrivolous.common.data.FrivolousMachines;
+import com.vnator.gtfrivolous.common.data.materials.FrivolousMaterials;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaForgeClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
-import vazkii.botania.forge.CapabilityUtil;
-import vazkii.botania.forge.client.ForgeClientInitializer;
 
 import java.util.Collections;
 import java.util.IdentityHashMap;
@@ -85,15 +80,16 @@ public class GTFrivolous {
         FrivolousBlocks.init();
     }
 
-    private static final Supplier<Map<BlockEntityType<?>, Function<BlockEntity, WandHUD>>> WAND_HUD = Suppliers.memoize(() -> {
-        var ret = new IdentityHashMap<BlockEntityType<?>, Function<BlockEntity, WandHUD>>();
-        FrivolousMachines.registerBotaniaWandHudCaps((factory, types) -> {
-            for (var type : types) {
-                ret.put(type, factory);
-            }
-        });
-        return Collections.unmodifiableMap(ret);
-    });
+    private static final Supplier<Map<BlockEntityType<?>, Function<BlockEntity, WandHUD>>> WAND_HUD = Suppliers
+            .memoize(() -> {
+                var ret = new IdentityHashMap<BlockEntityType<?>, Function<BlockEntity, WandHUD>>();
+                FrivolousMachines.registerBotaniaWandHudCaps((factory, types) -> {
+                    for (var type : types) {
+                        ret.put(type, factory);
+                    }
+                });
+                return Collections.unmodifiableMap(ret);
+            });
 
     private void attachBeCapabilities(AttachCapabilitiesEvent<BlockEntity> e) {
         var be = e.getObject();
@@ -101,8 +97,8 @@ public class GTFrivolous {
 
             private LazyOptional<WandHUD> lazyCap = null;
 
-            public LazyOptional<WandHUD> getLazyCap(){
-                if(lazyCap == null) {
+            public LazyOptional<WandHUD> getLazyCap() {
+                if (lazyCap == null) {
                     var makeWandHud = WAND_HUD.get().get(be.getType());
                     if (makeWandHud != null) {
                         lazyCap = LazyOptional.of(() -> makeWandHud.apply(be));
@@ -120,7 +116,6 @@ public class GTFrivolous {
         if (be instanceof MetaMachineBlockEntity) {
             e.addCapability(prefix("wand_hud"), cap);
         }
-
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

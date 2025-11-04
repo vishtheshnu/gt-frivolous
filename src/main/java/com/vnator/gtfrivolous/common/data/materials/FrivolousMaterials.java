@@ -2,6 +2,7 @@ package com.vnator.gtfrivolous.common.data.materials;
 
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
+
 import com.vnator.gtfrivolous.GTFrivolous;
 import vazkii.botania.common.item.BotaniaItems;
 
