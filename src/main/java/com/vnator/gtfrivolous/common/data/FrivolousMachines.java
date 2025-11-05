@@ -84,7 +84,6 @@ public class FrivolousMachines {
 
     private static ManaPoolBindableMachine extractBotanicMachineFromEntity(BlockEntity entity) {
         MetaMachineBlockEntity metaMachine = (MetaMachineBlockEntity) entity;
-        metaMachine.getDefinition().getName();
         ManaPoolBindableMachine botanicMachine = (ManaPoolBindableMachine) metaMachine.getMetaMachine();
         return botanicMachine;
     }

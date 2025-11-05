@@ -39,6 +39,7 @@ public abstract class ManaPoolBindableMachine extends SimpleTieredMachine implem
 
     public ManaPoolBindableMachine(IMachineBlockEntity holder, int tier, Object... args) {
         super(holder, tier, GTMachineUtils.defaultTankSizeFunction, args);
+        energyContainer.resetBasicInfo(0, 0, 0, 0, 0);
     }
 
     @Override
