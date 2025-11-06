@@ -139,11 +139,11 @@ public abstract class ManaPoolBindableMachine extends SimpleTieredMachine implem
         return getDefaultHudIcon();
     }
 
-    public static class BindableFlowerWandHud<F extends ManaPoolBindableMachine> implements WandHUD {
+    public static class BindableMachineWandHud<F extends ManaPoolBindableMachine> implements WandHUD {
 
         protected final F flower;
 
-        public BindableFlowerWandHud(F flower) {
+        public BindableMachineWandHud(F flower) {
             this.flower = flower;
         }
 

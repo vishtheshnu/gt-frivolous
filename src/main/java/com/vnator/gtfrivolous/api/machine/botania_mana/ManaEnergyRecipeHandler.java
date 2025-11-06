@@ -35,12 +35,9 @@ public class ManaEnergyRecipeHandler implements IRecipeHandler<EnergyStack> {
             long stackEU = stack.getTotalEU();
             int stackMana = GTMath.saturatedCast((long) Math.ceil(stackEU * conversionRate));
             if (stackMana > 0) {
-                int manaChange = stackMana * (io == IO.IN ? -1 : 1);
                 if (io == IO.IN) {
                     // Consuming Mana
-                    if (currentMana < stackMana) {
-                        continue;
-                    } else {
+                    if (currentMana >= stackMana) {
                         if (!simulate) {
                             machine.addMana(-stackMana);
                         }
@@ -50,9 +47,7 @@ public class ManaEnergyRecipeHandler implements IRecipeHandler<EnergyStack> {
                 } else if (io == IO.OUT) {
                     // Producing Mana
                     // TODO hook up actual mana pool in machine/multiblock when time to create
-                    if (currentMana + stackMana > machine.getMaxMana()) {
-                        continue;
-                    } else {
+                    if (currentMana + stackMana <= machine.getMaxMana()) {
                         if (!simulate) {
                             machine.addMana(stackMana);
                         }

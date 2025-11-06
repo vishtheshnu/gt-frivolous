@@ -5,7 +5,6 @@
   "minVersion": "0.8",
   "mixins": [
     "DummyMixin",
-    "botania.Wand_CoordsBoundItemImpl",
     "botania.WandOfTheForestMixin",
     "gtceu.MetaMachineBlockEntityMixin"
   ],

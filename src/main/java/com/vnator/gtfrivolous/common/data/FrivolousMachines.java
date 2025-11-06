@@ -3,14 +3,12 @@ package com.vnator.gtfrivolous.common.data;
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.blockentity.MetaMachineBlockEntity;
-import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
 import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.common.data.machines.GTMachineUtils;
-import com.gregtechceu.gtceu.utils.FormattingUtil;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -31,6 +29,8 @@ import java.util.stream.Stream;
  * Performs registration of this addon's machines
  */
 public class FrivolousMachines {
+
+    private static final String BOTANIC_MACHINE_TOOLTIP = "gtfrivolous.machine.botanic";
 
     static {
         GTFrivolous.REGISTRATE.creativeModeTab(() -> CreativeModeTabs.GT_FRIVOLOUS);
@@ -53,39 +53,17 @@ public class FrivolousMachines {
 
     public static Component[] tooltipsBotanic(int tier, GTRecipeType recipeType, boolean input) {
         List<Component> tooltipComponents = new ArrayList<>();
-        tooltipComponents.add(Component.translatable("gtfrivolous.universal.botanic"));
-        return tooltipComponents.toArray(Component[]::new);
-    }
-
-    public static Component[] workableTiered(int tier, long voltage, long energyCapacity, GTRecipeType recipeType,
-                                             long tankCapacity, boolean input) {
-        List<Component> tooltipComponents = new ArrayList<>();
-        tooltipComponents
-                .add(input ?
-                        Component.translatable("gtceu.universal.tooltip.voltage_in",
-                                FormattingUtil.formatNumbers(voltage), GTValues.VNF[tier]) :
-                        Component.translatable("gtceu.universal.tooltip.voltage_out",
-                                FormattingUtil.formatNumbers(voltage), GTValues.VNF[tier]));
-        tooltipComponents
-                .add(Component.translatable("gtceu.universal.tooltip.energy_storage_capacity",
-                        FormattingUtil.formatNumbers(energyCapacity)));
-        if (recipeType.getMaxInputs(FluidRecipeCapability.CAP) > 0 ||
-                recipeType.getMaxOutputs(FluidRecipeCapability.CAP) > 0)
-            tooltipComponents
-                    .add(Component.translatable("gtceu.universal.tooltip.fluid_storage_capacity",
-                            FormattingUtil.formatNumbers(tankCapacity)));
+        tooltipComponents.add(Component.translatable(BOTANIC_MACHINE_TOOLTIP));
         return tooltipComponents.toArray(Component[]::new);
     }
 
     public static void registerBotaniaWandHudCaps(BotaniaBlockEntities.BECapConsumer<WandHUD> consumer) {
-        consumer.accept(be -> new ManaPoolBindableMachine.BindableFlowerWandHud<>(extractBotanicMachineFromEntity(be)),
+        consumer.accept(be -> new ManaPoolBindableMachine.BindableMachineWandHud<>(extractBotanicMachineFromEntity(be)),
                 getBlockEntityTypes(botanicCentrifuge));
     }
 
     private static ManaPoolBindableMachine extractBotanicMachineFromEntity(BlockEntity entity) {
-        MetaMachineBlockEntity metaMachine = (MetaMachineBlockEntity) entity;
-        ManaPoolBindableMachine botanicMachine = (ManaPoolBindableMachine) metaMachine.getMetaMachine();
-        return botanicMachine;
+        return (ManaPoolBindableMachine) ((MetaMachineBlockEntity) entity).getMetaMachine();
     }
 
     private static BlockEntityType<?>[] getBlockEntityTypes(MachineDefinition[] defs) {
