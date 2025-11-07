@@ -48,9 +48,8 @@ public class WandOfTheForestMixin {
 
         if (player != null) {
             BlockEntity tile = world.getBlockEntity(pos);
-            if (WandOfTheForestItem.getBindMode(stack)
-                    && tile instanceof MetaMachineBlockEntity machineTile
-                    && machineTile.getMetaMachine() instanceof WandBindable bindable){
+            if (WandOfTheForestItem.getBindMode(stack) && tile instanceof MetaMachineBlockEntity machineTile &&
+                    machineTile.getMetaMachine() instanceof WandBindable bindable) {
                 if (player.isShiftKeyDown() && bindable.canSelect(player, stack, pos, side)) {
                     if (boundPos.filter(pos::equals).isPresent()) {
                         setBindingAttempt(stack, Bound.UNBOUND_POS);
