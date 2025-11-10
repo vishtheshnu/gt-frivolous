@@ -15,13 +15,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.ManaNetwork;
-import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.common.block.BotaniaBlocks;
+
+import static com.vnator.gtfrivolous.api.machine.botania_mana.ManaEnergyRecipeHandler.DEFAULT_EU_TO_MANA_CONVERSION_RATE;
 
 public class BotanicMachine extends ManaPoolBindableMachine {
 
     private static final int LINK_RANGE = 10;
-    private static final double MANA_CONVERSION_RATE = 1; // mana -> 1 EU
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(BotanicMachine.class,
             ManaPoolBindableMachine.MANAGED_FIELD_HOLDER);
 
@@ -52,7 +52,7 @@ public class BotanicMachine extends ManaPoolBindableMachine {
     public void onLoad() {
         super.onLoad();
 
-        manaEnergy = new ManaEnergyRecipeHandler(this, MANA_CONVERSION_RATE);
+        manaEnergy = new ManaEnergyRecipeHandler(this, DEFAULT_EU_TO_MANA_CONVERSION_RATE);
         addHandlerList(RecipeHandlerList.of(IO.IN, manaEnergy));
         subscribeServerTick(this::drawManaFromPool);
 
@@ -64,20 +64,6 @@ public class BotanicMachine extends ManaPoolBindableMachine {
     //////////////////////////////////////
     // ****** Botania Logic ******//
     //////////////////////////////////////
-
-    public void drawManaFromPool() {
-        ManaPool pool = findBoundTile();
-        if (pool != null) {
-            int manaInPool = pool.getCurrentMana();
-            int manaMissing = getMaxMana() - mana;
-            int manaToRemove = Math.min(manaMissing, manaInPool);
-            pool.receiveMana(-manaToRemove);
-            addMana(manaToRemove);
-            if (manaToRemove != 0) {
-                System.out.println("Drawing mana from pool: " + manaToRemove);
-            }
-        }
-    }
 
     @Override
     public int getBindingRadius() {

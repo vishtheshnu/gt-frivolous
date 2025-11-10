@@ -27,9 +27,11 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import com.google.common.base.Suppliers;
+import com.vnator.gtfrivolous.api.machine.gtbridge.FrivolousRecipeTypes;
 import com.vnator.gtfrivolous.common.data.FrivolousBlocks;
 import com.vnator.gtfrivolous.common.data.FrivolousMachines;
 import com.vnator.gtfrivolous.common.data.materials.FrivolousMaterials;
+import com.vnator.gtfrivolous.common.datagen.FrivolousLang;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -78,6 +80,7 @@ public class GTFrivolous {
 
     private void init() {
         FrivolousBlocks.init();
+        FrivolousLang.init();
     }
 
     private static final Supplier<Map<BlockEntityType<?>, Function<BlockEntity, WandHUD>>> WAND_HUD = Suppliers
@@ -178,7 +181,7 @@ public class GTFrivolous {
      * @param event
      */
     private void registerRecipeTypes(GTCEuAPI.RegisterEvent<ResourceLocation, GTRecipeType> event) {
-        // CustomRecipeTypes.init();
+        FrivolousRecipeTypes.init();
     }
 
     /**

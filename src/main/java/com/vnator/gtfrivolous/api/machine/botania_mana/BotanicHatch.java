@@ -1,7 +1,8 @@
 package com.vnator.gtfrivolous.api.machine.botania_mana;
 
-import com.gregtechceu.gtceu.api.machine.*;
-import com.gregtechceu.gtceu.common.data.machines.GTMachineUtils;
+import com.gregtechceu.gtceu.api.capability.recipe.IO;
+import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
+import com.gregtechceu.gtceu.api.machine.multiblock.part.TieredIOPartMachine;
 
 import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
@@ -18,28 +19,40 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.WandHUD;
+import vazkii.botania.api.internal.ManaNetwork;
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.MathHelper;
 
 import java.util.Objects;
 
-public abstract class ManaPoolBindableMachine extends SimpleTieredMachine implements WandBindable, ManaConsumer {
+public class BotanicHatch extends TieredIOPartMachine implements WandBindable, ManaConsumer {
 
+    private static final int BINDING_RADIUS_BASE = 10;
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
-            ManaPoolBindableMachine.class,
-            SimpleTieredMachine.MANAGED_FIELD_HOLDER);
+            BotanicHatch.class,
+            TieredIOPartMachine.MANAGED_FIELD_HOLDER);
+
+    @Persisted
+    @DescSynced
+    private final int maxMana;
+
+    @Persisted
+    @DescSynced
+    private int mana;
 
     @Persisted
     @DescSynced
     protected @Nullable BlockPos bindingPos;
 
-    public ManaPoolBindableMachine(IMachineBlockEntity holder, int tier, Object... args) {
-        super(holder, tier, GTMachineUtils.defaultTankSizeFunction, args);
-        energyContainer.resetBasicInfo(0, 0, 0, 0, 0);
+    public BotanicHatch(IMachineBlockEntity holder, int tier, IO io) {
+        super(holder, tier, io);
+        maxMana = 1000 * (int) Math.pow(4, tier);
     }
 
     @Override
@@ -51,14 +64,54 @@ public abstract class ManaPoolBindableMachine extends SimpleTieredMachine implem
     // ****** Botania Logic ******//
     //////////////////////////////////////
 
-    /**
-     * Returns the BlockPos of the nearest target within the binding radius, or `null` if there aren't any.
-     */
-    public abstract @Nullable BlockPos findClosestTarget();
+    @Override
+    public void onLoad() {
+        super.onLoad();
+        if (bindingPos == null || !isValidBinding()) {
+            setBindingPos(findClosestTarget());
+        }
+    }
 
-    public abstract int getColor();
+    @Override
+    public int getMana() {
+        return mana;
+    }
 
-    public abstract ItemStack getDefaultHudIcon();
+    @Override
+    public void addMana(int mana) {
+        this.mana = Math.min(getMaxMana(), this.mana + mana);
+        onChanged();
+        notifyBlockUpdate();
+    }
+
+    @Override
+    public int getMaxMana() {
+        return maxMana;
+    }
+
+    @Override
+    public int getBindingRadius() {
+        return BINDING_RADIUS_BASE * tier;
+    }
+
+    @Override
+    public boolean canSelect(Player player, ItemStack wand, BlockPos pos, Direction side) {
+        return true;
+    }
+
+    @Override
+    public boolean bindTo(Player player, ItemStack wand, BlockPos blockPos, Direction side) {
+        if (wouldBeValidBinding(blockPos)) {
+            setBindingPos(blockPos);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public @Nullable BlockPos getBinding() {
+        return bindingPos;
+    }
 
     public @Nullable BlockPos getBindingPos() {
         return bindingPos;
@@ -85,6 +138,7 @@ public abstract class ManaPoolBindableMachine extends SimpleTieredMachine implem
         return be instanceof ManaPool ? (ManaPool) be : null;
     }
 
+    @Override
     public @Nullable ManaPool findBoundTile() {
         return findBindCandidateAt(bindingPos);
     }
@@ -103,24 +157,14 @@ public abstract class ManaPoolBindableMachine extends SimpleTieredMachine implem
         return wouldBeValidBinding(bindingPos);
     }
 
-    @Override
-    public boolean canSelect(Player player, ItemStack itemStack, BlockPos blockPos, Direction direction) {
-        return true;
+    public @Nullable BlockPos findClosestTarget() {
+        ManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
+        var closestPool = network.getClosestPool(getPos(), getLevel(), getBindingRadius());
+        return closestPool == null ? null : closestPool.getManaReceiverPos();
     }
 
-    @Override
-    public boolean bindTo(Player player, ItemStack itemStack, BlockPos blockPos, Direction direction) {
-        if (wouldBeValidBinding(blockPos)) {
-            setBindingPos(blockPos);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public @Nullable BlockPos getBinding() {
-        // Used for Wand of the Forest overlays; only return the binding if it's valid.
-        return isValidBinding() ? bindingPos : null;
+    public int getColor() {
+        return 0x000FFF;
     }
 
     public ItemStack getHudIcon() {
@@ -128,10 +172,10 @@ public abstract class ManaPoolBindableMachine extends SimpleTieredMachine implem
         if (boundTile != null) {
             return new ItemStack(((BlockEntity) boundTile).getBlockState().getBlock().asItem());
         }
-        return getDefaultHudIcon();
+        return new ItemStack(BotaniaBlocks.manaPool.asItem());
     }
 
-    public static class BindableMachineWandHud<F extends ManaPoolBindableMachine> implements WandHUD {
+    public static class BindableMachineWandHud<F extends BotanicHatch> implements WandHUD {
 
         protected final F flower;
 

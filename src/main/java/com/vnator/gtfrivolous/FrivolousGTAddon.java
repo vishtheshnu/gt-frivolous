@@ -6,6 +6,7 @@ import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 
 import net.minecraft.data.recipes.FinishedRecipe;
 
+import com.vnator.gtfrivolous.common.data.FrivolousRecipes;
 import com.vnator.gtfrivolous.common.data.materials.FrivolousElements;
 
 import java.util.function.Consumer;
@@ -40,7 +41,7 @@ public class FrivolousGTAddon implements IGTAddon {
 
     @Override
     public void addRecipes(Consumer<FinishedRecipe> provider) {
-        // CustomRecipes.init(provider);
+        FrivolousRecipes.init(provider);
     }
 
     // If you have custom ingredient types, uncomment this & change to match your capability.

@@ -1,7 +1,18 @@
 {
+  "block.gtfrivolous.botania_balanced_clayworks": "sʞɹoʍʎɐןƆ pǝɔuɐןɐᗺ ɐıuɐʇoᗺ",
+  "block.gtfrivolous.botania_magical_greenhouse": "ǝsnoɥuǝǝɹ⅁ ןɐɔıbɐW ɐıuɐʇoᗺ",
+  "block.gtfrivolous.botania_orechid_megaconverter": "ɹǝʇɹǝʌuoɔɐbǝW pıɥɔǝɹO ɐıuɐʇoᗺ",
+  "block.gtfrivolous.botania_purity_processor": "ɹossǝɔoɹԀ ʎʇıɹnԀ ɐıuɐʇoᗺ",
   "block.gtfrivolous.lv_botanic_centrifuge": "I ǝbnɟıɹʇuǝƆ ɔıuɐʇoᗺ",
+  "block.gtfrivolous.mana_hatch": "ɥɔʇɐH ɐuɐW",
   "block.gtfrivolous.manasteel_machine_casing": "buısɐƆ ǝuıɥɔɐW ןǝǝʇsɐuɐW",
   "block.gtfrivolous.mv_botanic_centrifuge": "II ǝbnɟıɹʇuǝƆ ɔıuɐʇoᗺ",
+  "gtfrivolous.multiblock.balanced_clayworks.info": "ʎɐןƆ pǝɔuɐןɐᗺ ʎןʇɔǝɟɹǝԀ",
+  "gtfrivolous.multiblock.botania.purity_processor.tooltip": "ɯɹoɟ ʞɔoןqıʇןnW uı ʎsıɐᗡ ǝɹnԀ",
+  "gtfrivolous.multiblock.magical_greenhouse.info": "ɥʇʍoɹ⅁ ʇuɐןԀ ןɐuoıʇuǝʌuoɔu∩",
+  "gtfrivolous.multiblock.mana.mana_stored": "%s / %s :ɐuɐW",
+  "gtfrivolous.multiblock.orechid_megaconverter.info": "ɹǝuıW pıoΛ ןɐɔıbɐW",
+  "gtfrivolous.multiblock.purity_processor.info": "ɯɹoɟ ʞɔoןqıʇןnW uı ʎsıɐᗡ ǝɹnԀ",
   "itemGroup.gtfrivolous.creative_tab": "snoןoʌıɹℲ ⟘⅁",
   "material.gtfrivolous.manasteel": "ןǝǝʇsɐuɐW"
 }

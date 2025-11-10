@@ -1,7 +1,18 @@
 {
+  "block.gtfrivolous.botania_balanced_clayworks": "Botania Balanced Clayworks",
+  "block.gtfrivolous.botania_magical_greenhouse": "Botania Magical Greenhouse",
+  "block.gtfrivolous.botania_orechid_megaconverter": "Botania Orechid Megaconverter",
+  "block.gtfrivolous.botania_purity_processor": "Botania Purity Processor",
   "block.gtfrivolous.lv_botanic_centrifuge": "Botanic Centrifuge I",
+  "block.gtfrivolous.mana_hatch": "Mana Hatch",
   "block.gtfrivolous.manasteel_machine_casing": "Manasteel Machine Casing",
   "block.gtfrivolous.mv_botanic_centrifuge": "Botanic Centrifuge II",
+  "gtfrivolous.multiblock.balanced_clayworks.info": "Perfectly Balanced Clay",
+  "gtfrivolous.multiblock.botania.purity_processor.tooltip": "Pure Daisy in Multiblock form",
+  "gtfrivolous.multiblock.magical_greenhouse.info": "Unconventional Plant Growth",
+  "gtfrivolous.multiblock.mana.mana_stored": "Mana: %s / %s",
+  "gtfrivolous.multiblock.orechid_megaconverter.info": "Magical Void Miner",
+  "gtfrivolous.multiblock.purity_processor.info": "Pure Daisy in Multiblock form",
   "itemGroup.gtfrivolous.creative_tab": "GT Frivolous",
   "material.gtfrivolous.manasteel": "Manasteel"
 }

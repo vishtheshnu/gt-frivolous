@@ -14,10 +14,11 @@ import java.util.List;
 
 public class ManaEnergyRecipeHandler implements IRecipeHandler<EnergyStack> {
 
-    private final BotanicMachine machine;
+    public static final double DEFAULT_EU_TO_MANA_CONVERSION_RATE = 1.0;
+    private final ManaConsumer machine;
     private final double conversionRate; // Mana/EU
 
-    public ManaEnergyRecipeHandler(BotanicMachine machine, double conversionRate) {
+    public ManaEnergyRecipeHandler(ManaConsumer machine, double conversionRate) {
         this.machine = machine;
         this.conversionRate = conversionRate;
     }
