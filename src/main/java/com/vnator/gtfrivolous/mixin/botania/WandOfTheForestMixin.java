@@ -25,6 +25,11 @@ import java.util.Optional;
 
 import static vazkii.botania.common.item.WandOfTheForestItem.*;
 
+/**
+ * Presently not enabled because botania mixins crash when exported and loaded into a modpack.
+ * However, adding block tag "unwandable" to botania machines achieves the same effect, but at the cost of not being
+ * able to rotate them via wand of the forest.
+ */
 @Debug(export = true)
 @Mixin(value = WandOfTheForestItem.class, remap = false)
 public class WandOfTheForestMixin {
