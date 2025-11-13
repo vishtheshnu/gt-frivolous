@@ -22,7 +22,7 @@ public class FrivolousLang {
     public static Component CIRCUIT_BOTANIC_LV_TOOLTIP_0 = REGISTRATE
             .addRawLang("gtfrivolous.lore.circuit_botanic_lv.0", "§7Your First Circuit§c");
     public static Component CIRCUIT_BOTANIC_LV_TOOLTIP_1 = REGISTRATE
-            .addRawLang("gtfrivolous.lore.circuit_botanic_lv.1", "LV-Tier Circuit");
+            .addRawLang("gtfrivolous.lore.circuit_botanic_lv.1", "§4LV-Tier Circuit§c");
 
     public static void init() {}
 }

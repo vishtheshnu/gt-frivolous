@@ -1,15 +1,17 @@
 package com.vnator.gtfrivolous;
 
 import com.gregtechceu.gtceu.api.item.ComponentItem;
+import com.gregtechceu.gtceu.api.item.IComponentItem;
+import com.gregtechceu.gtceu.api.item.component.IItemComponent;
 import com.gregtechceu.gtceu.common.item.TooltipBehavior;
 import com.gregtechceu.gtceu.data.recipe.CustomTags;
 
+import com.tterrag.registrate.util.nullness.NonNullConsumer;
 import net.minecraft.network.chat.Component;
 
 import com.tterrag.registrate.util.entry.ItemEntry;
 import com.vnator.gtfrivolous.common.data.CreativeModeTabs;
 
-import static com.gregtechceu.gtceu.common.data.GTItems.attach;
 import static com.vnator.gtfrivolous.GTFrivolous.REGISTRATE;
 
 public class FrivolousItems {
@@ -56,6 +58,10 @@ public class FrivolousItems {
             .tag()
             .defaultModel()
             .register();
+
+    public static <T extends IComponentItem> NonNullConsumer<T> attach(IItemComponent components) {
+        return item -> item.attachComponents(components);
+    }
 
     public static void init() {}
 }

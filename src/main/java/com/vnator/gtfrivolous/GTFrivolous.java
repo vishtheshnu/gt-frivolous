@@ -79,9 +79,9 @@ public class GTFrivolous {
     }
 
     private void init() {
-        FrivolousItems.init();
         FrivolousBlocks.init();
         FrivolousLang.init();
+        FrivolousItems.init();
     }
 
     private static final Supplier<Map<BlockEntityType<?>, Function<BlockEntity, WandHUD>>> WAND_HUD = Suppliers
