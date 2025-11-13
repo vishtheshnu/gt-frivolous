@@ -179,7 +179,8 @@ public class FrivolousMachines {
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(GTRecipeTypes.CENTRIFUGE_RECIPES)
                     .recipeModifier(GTRecipeModifiers.OC_NON_PERFECT)
-                    .workableTieredHullModel(GTCEu.id("block/machines/centrifuge"))
+                    .workableCasingModel(GTFrivolous.id("block/casings/voltage/lv"), GTCEu.id("block/machines/centrifuge"))
+                    //.workableTieredHullModel(GTCEu.id("block/machines/centrifuge"))
                     .tooltips(tooltipsBotanic(tier, GTRecipeTypes.CENTRIFUGE_RECIPES, true))
                     .register(),
             1, 2);
