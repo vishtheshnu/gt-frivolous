@@ -19,5 +19,10 @@ public class FrivolousLang {
     public static Component PURITY_PROCESSOR_TOOLTIP = REGISTRATE
             .addRawLang("gtfrivolous.multiblock.botania.purity_processor.tooltip", "Pure Daisy in Multiblock form");
 
+    public static Component CIRCUIT_BOTANIC_LV_TOOLTIP_0 = REGISTRATE
+            .addRawLang("gtfrivolous.lore.circuit_botanic_lv.0", "§7Your First Circuit§c");
+    public static Component CIRCUIT_BOTANIC_LV_TOOLTIP_1 = REGISTRATE
+            .addRawLang("gtfrivolous.lore.circuit_botanic_lv.1", "LV-Tier Circuit");
+
     public static void init() {}
 }

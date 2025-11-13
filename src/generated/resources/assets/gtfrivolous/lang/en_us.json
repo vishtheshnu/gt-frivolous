@@ -13,6 +13,11 @@
   "gtfrivolous.multiblock.mana.mana_stored": "Mana: %s / %s",
   "gtfrivolous.multiblock.orechid_megaconverter.info": "Magical Void Miner",
   "gtfrivolous.multiblock.purity_processor.info": "Pure Daisy in Multiblock form",
+  "item.gtfrivolous.circuit_botanic_lv": "LV Botanic Circuit",
+  "item.gtfrivolous.livingwood_circuit_board": "Livingwood Circuit Board",
+  "item.gtfrivolous.livingwood_printed_circuit_board": "Livingwood Printed Circuit Board",
+  "item.gtfrivolous.managlass_tube": "Managlass Tube",
+  "item.gtfrivolous.managlass_vacuum_tube": "Managlass Vacuum Tube",
   "itemGroup.gtfrivolous.creative_tab": "GT Frivolous",
   "material.gtfrivolous.manasteel": "Manasteel"
 }

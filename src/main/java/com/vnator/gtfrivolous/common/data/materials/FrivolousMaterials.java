@@ -18,7 +18,7 @@ public class FrivolousMaterials {
                 .ignoredTagPrefixes()
                 .liquid()
                 .element(FrivolousElements.ELE_MANA_STEEL)
-                .flags(GENERATE_PLATE, GENERATE_ROD, GENERATE_FRAME)
+                .flags(GENERATE_PLATE, GENERATE_ROD, GENERATE_FRAME, GENERATE_BOLT_SCREW)
                 .color(0x4679f4).secondaryColor(0x8db2ff)
                 .register();
     }

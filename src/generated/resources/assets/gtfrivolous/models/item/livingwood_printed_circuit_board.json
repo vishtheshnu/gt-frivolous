@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "gtfrivolous:item/livingwood_printed_circuit_board"
+  }
+}

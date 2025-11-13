@@ -79,6 +79,7 @@ public class GTFrivolous {
     }
 
     private void init() {
+        FrivolousItems.init();
         FrivolousBlocks.init();
         FrivolousLang.init();
     }

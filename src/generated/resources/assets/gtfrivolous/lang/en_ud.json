@@ -13,6 +13,11 @@
   "gtfrivolous.multiblock.mana.mana_stored": "%s / %s :ɐuɐW",
   "gtfrivolous.multiblock.orechid_megaconverter.info": "ɹǝuıW pıoΛ ןɐɔıbɐW",
   "gtfrivolous.multiblock.purity_processor.info": "ɯɹoɟ ʞɔoןqıʇןnW uı ʎsıɐᗡ ǝɹnԀ",
+  "item.gtfrivolous.circuit_botanic_lv": "ʇınɔɹıƆ ɔıuɐʇoᗺ ΛꞀ",
+  "item.gtfrivolous.livingwood_circuit_board": "pɹɐoᗺ ʇınɔɹıƆ pooʍbuıʌıꞀ",
+  "item.gtfrivolous.livingwood_printed_circuit_board": "pɹɐoᗺ ʇınɔɹıƆ pǝʇuıɹԀ pooʍbuıʌıꞀ",
+  "item.gtfrivolous.managlass_tube": "ǝqn⟘ ssɐןbɐuɐW",
+  "item.gtfrivolous.managlass_vacuum_tube": "ǝqn⟘ ɯnnɔɐΛ ssɐןbɐuɐW",
   "itemGroup.gtfrivolous.creative_tab": "snoןoʌıɹℲ ⟘⅁",
   "material.gtfrivolous.manasteel": "ןǝǝʇsɐuɐW"
 }

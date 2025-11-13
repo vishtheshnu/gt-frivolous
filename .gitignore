@@ -16,6 +16,12 @@ classes/
 *.ipr
 *.iws
 
+# assets
+
+*.kra
+*.png~
+*.kra~
+
 # vscode
 
 .settings/
