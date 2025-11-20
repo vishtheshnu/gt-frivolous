@@ -6,10 +6,10 @@ import com.gregtechceu.gtceu.api.item.component.IItemComponent;
 import com.gregtechceu.gtceu.common.item.TooltipBehavior;
 import com.gregtechceu.gtceu.data.recipe.CustomTags;
 
-import com.tterrag.registrate.util.nullness.NonNullConsumer;
 import net.minecraft.network.chat.Component;
 
 import com.tterrag.registrate.util.entry.ItemEntry;
+import com.tterrag.registrate.util.nullness.NonNullConsumer;
 import com.vnator.gtfrivolous.common.data.CreativeModeTabs;
 
 import static com.vnator.gtfrivolous.GTFrivolous.REGISTRATE;

@@ -4,10 +4,13 @@
   "block.gtfrivolous.botania_orechid_megaconverter": "Botania Orechid Megaconverter",
   "block.gtfrivolous.botania_purity_processor": "Botania Purity Processor",
   "block.gtfrivolous.lv_botanic_centrifuge": "Botanic Centrifuge I",
-  "block.gtfrivolous.lv_magic_machine_casing": "LV Magic Machine Casing",
+  "block.gtfrivolous.lv_magic_hull": "lv §fMagical Machine Hull",
+  "block.gtfrivolous.lv_magic_machine_casing": "LV Botanic Machine Casing",
   "block.gtfrivolous.mana_hatch": "Mana Hatch",
   "block.gtfrivolous.manasteel_machine_casing": "Manasteel Machine Casing",
   "block.gtfrivolous.mv_botanic_centrifuge": "Botanic Centrifuge II",
+  "block.gtfrivolous.mv_magic_hull": "mv §fMagical Machine Hull",
+  "block.gtfrivolous.mv_magic_machine_casing": "MV Botanic Machine Casing",
   "gtfrivolous.lore.circuit_botanic_lv.0": "§7Your First Circuit§c",
   "gtfrivolous.lore.circuit_botanic_lv.1": "§4LV-Tier Circuit§c",
   "gtfrivolous.multiblock.balanced_clayworks.info": "Perfectly Balanced Clay",
@@ -22,5 +25,6 @@
   "item.gtfrivolous.managlass_tube": "Managlass Tube",
   "item.gtfrivolous.managlass_vacuum_tube": "Managlass Vacuum Tube",
   "itemGroup.gtfrivolous.creative_tab": "GT Frivolous",
-  "material.gtfrivolous.manasteel": "Manasteel"
+  "material.gtfrivolous.manasteel": "Manasteel",
+  "material.gtfrivolous.terrasteel": "Terrasteel"
 }

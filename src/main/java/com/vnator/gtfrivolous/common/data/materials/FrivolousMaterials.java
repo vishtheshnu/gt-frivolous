@@ -11,6 +11,7 @@ import static com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialFlag
 public class FrivolousMaterials {
 
     public static Material MANA_STEEL;
+    public static Material TERRA_STEEL;
 
     public static void register() {
         MANA_STEEL = new Material.Builder(GTFrivolous.id("manasteel"))
@@ -19,7 +20,16 @@ public class FrivolousMaterials {
                 .liquid()
                 .element(FrivolousElements.ELE_MANA_STEEL)
                 .flags(GENERATE_PLATE, GENERATE_ROD, GENERATE_FRAME, GENERATE_BOLT_SCREW)
-                .color(0x4679f4).secondaryColor(0x8db2ff)
+                .color(0x4679f4).secondaryColor(0xffffff)
+                .register();
+        TERRA_STEEL = new Material.Builder(GTFrivolous.id("terrasteel"))
+                .ingot()
+                .ignoredTagPrefixes()
+                .liquid()
+                .formula("MsBeC")
+                // .element(FrivolousElements.ELE_MANA_STEEL)
+                .flags(GENERATE_PLATE, GENERATE_ROD, GENERATE_FRAME, GENERATE_BOLT_SCREW)
+                .color(0x336f2e).secondaryColor(0xffffff)
                 .register();
     }
 

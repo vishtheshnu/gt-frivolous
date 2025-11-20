@@ -4,10 +4,13 @@
   "block.gtfrivolous.botania_orechid_megaconverter": "ɹǝʇɹǝʌuoɔɐbǝW pıɥɔǝɹO ɐıuɐʇoᗺ",
   "block.gtfrivolous.botania_purity_processor": "ɹossǝɔoɹԀ ʎʇıɹnԀ ɐıuɐʇoᗺ",
   "block.gtfrivolous.lv_botanic_centrifuge": "I ǝbnɟıɹʇuǝƆ ɔıuɐʇoᗺ",
-  "block.gtfrivolous.lv_magic_machine_casing": "buısɐƆ ǝuıɥɔɐW ɔıbɐW ΛꞀ",
+  "block.gtfrivolous.lv_magic_hull": "ןןnH ǝuıɥɔɐW ןɐɔıbɐWɟ§ ʌן",
+  "block.gtfrivolous.lv_magic_machine_casing": "buısɐƆ ǝuıɥɔɐW ɔıuɐʇoᗺ ΛꞀ",
   "block.gtfrivolous.mana_hatch": "ɥɔʇɐH ɐuɐW",
   "block.gtfrivolous.manasteel_machine_casing": "buısɐƆ ǝuıɥɔɐW ןǝǝʇsɐuɐW",
   "block.gtfrivolous.mv_botanic_centrifuge": "II ǝbnɟıɹʇuǝƆ ɔıuɐʇoᗺ",
+  "block.gtfrivolous.mv_magic_hull": "ןןnH ǝuıɥɔɐW ןɐɔıbɐWɟ§ ʌɯ",
+  "block.gtfrivolous.mv_magic_machine_casing": "buısɐƆ ǝuıɥɔɐW ɔıuɐʇoᗺ ΛW",
   "gtfrivolous.lore.circuit_botanic_lv.0": "ɔ§ʇınɔɹıƆ ʇsɹıℲ ɹnoʎㄥ§",
   "gtfrivolous.lore.circuit_botanic_lv.1": "ɔ§ʇınɔɹıƆ ɹǝı⟘-ΛꞀㄣ§",
   "gtfrivolous.multiblock.balanced_clayworks.info": "ʎɐןƆ pǝɔuɐןɐᗺ ʎןʇɔǝɟɹǝԀ",
@@ -22,5 +25,6 @@
   "item.gtfrivolous.managlass_tube": "ǝqn⟘ ssɐןbɐuɐW",
   "item.gtfrivolous.managlass_vacuum_tube": "ǝqn⟘ ɯnnɔɐΛ ssɐןbɐuɐW",
   "itemGroup.gtfrivolous.creative_tab": "snoןoʌıɹℲ ⟘⅁",
-  "material.gtfrivolous.manasteel": "ןǝǝʇsɐuɐW"
+  "material.gtfrivolous.manasteel": "ןǝǝʇsɐuɐW",
+  "material.gtfrivolous.terrasteel": "ןǝǝʇsɐɹɹǝ⟘"
 }

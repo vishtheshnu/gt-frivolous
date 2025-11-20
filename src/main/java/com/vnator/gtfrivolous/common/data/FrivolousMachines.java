@@ -8,20 +8,22 @@ import com.gregtechceu.gtceu.api.data.RotationState;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
 import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
-import com.gregtechceu.gtceu.api.machine.property.GTMachineModelProperties;
 import com.gregtechceu.gtceu.api.pattern.FactoryBlockPattern;
 import com.gregtechceu.gtceu.api.pattern.Predicates;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
+import com.gregtechceu.gtceu.api.registry.registrate.MachineBuilder;
 import com.gregtechceu.gtceu.common.data.GTRecipeModifiers;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.common.data.machines.GTMachineUtils;
 import com.gregtechceu.gtceu.common.data.models.GTMachineModels;
+import com.gregtechceu.gtceu.common.machine.electric.HullMachine;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.client.model.generators.BlockModelBuilder;
 
 import com.vnator.gtfrivolous.GTFrivolous;
 import com.vnator.gtfrivolous.api.machine.botania_mana.BotanicHatch;
@@ -37,10 +39,14 @@ import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import static com.gregtechceu.gtceu.api.GTValues.VN;
+import static com.gregtechceu.gtceu.api.machine.property.GTMachineModelProperties.IS_FORMED;
 import static com.gregtechceu.gtceu.common.data.models.GTMachineModels.OVERLAY_ITEM_HATCH;
+import static com.gregtechceu.gtceu.common.data.models.GTMachineModels.casingTextures;
 import static com.vnator.gtfrivolous.GTFrivolous.REGISTRATE;
 
 /**
@@ -61,7 +67,7 @@ public class FrivolousMachines {
             .langValue("Mana Hatch")
             .rotationState(RotationState.ALL)
             .tier(GTValues.LV)
-            .modelProperty(GTMachineModelProperties.IS_FORMED, false)
+            .modelProperty(IS_FORMED, false)
             .colorOverlayTieredHullModel(GTCEu.id("block/overlay/machine/overlay_pipe_in_emissive"), null,
                     GTCEu.id("block/overlay/machine/" + OVERLAY_ITEM_HATCH))
             .abilities(ManaPartAbility.MANA_HATCH)
@@ -169,6 +175,17 @@ public class FrivolousMachines {
             .register();
 
     /* Machines */
+    public static final MachineDefinition[] magicHulls = GTMachineUtils.registerTieredMachines(
+            REGISTRATE, "magic_hull", HullMachine::new,
+            (tier, builder) -> builder
+                    .rotationState(RotationState.ALL)
+                    .model(createOverlayTieredHullMachineModel(GTCEu.id("block/machine/part/hull"), tier))
+                    .modelProperty(IS_FORMED, false)
+                    .langValue("%s §fMagical Machine Hull".formatted(VN[tier].toLowerCase(Locale.ROOT)))
+                    .tooltips(Component.translatable("gtceu.machine.hull.tooltip"))
+                    .register(),
+            1, 2);
+
     public static final MachineDefinition[] botanicCentrifuge = GTMachineUtils.registerTieredMachines(
             REGISTRATE, "botanic_centrifuge",
             BotanicMachine::new,
@@ -179,7 +196,8 @@ public class FrivolousMachines {
                     .rotationState(RotationState.NON_Y_AXIS)
                     .recipeType(GTRecipeTypes.CENTRIFUGE_RECIPES)
                     .recipeModifier(GTRecipeModifiers.OC_NON_PERFECT)
-                    .workableCasingModel(GTFrivolous.id("block/casings/voltage/lv/side"), GTCEu.id("block/machines/centrifuge"))
+                    .workableCasingModel(GTFrivolous.id("block/casings/voltage/lv/side"),
+                            GTCEu.id("block/machines/centrifuge"))
                     .tooltips(tooltipsBotanic(tier, GTRecipeTypes.CENTRIFUGE_RECIPES, true))
                     .register(),
             1, 2);
@@ -210,6 +228,18 @@ public class FrivolousMachines {
                 .filter(Objects::nonNull)
                 .map(MachineDefinition::getBlockEntityType)
                 .toArray(BlockEntityType[]::new);
+    }
+
+    private static MachineBuilder.ModelInitializer createOverlayTieredHullMachineModel(ResourceLocation overlayModel,
+                                                                                       int tier) {
+        return (ctx, prov, builder) -> {
+            BlockModelBuilder model = prov.models().nested()
+                    .parent(prov.models().getExistingFile(overlayModel));
+            casingTextures(model, GTFrivolous.id("block/casings/voltage/" + VN[tier].toLowerCase(Locale.ROOT) + "/"));
+            builder.forAllStatesModels(state -> model);
+
+            builder.addReplaceableTextures("bottom", "top", "side");
+        };
     }
 
     public static void init() {}

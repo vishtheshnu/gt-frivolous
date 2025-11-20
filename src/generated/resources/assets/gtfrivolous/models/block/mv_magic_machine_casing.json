@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "gtfrivolous:block/casings/voltage/mv/bottom",
+    "side": "gtfrivolous:block/casings/voltage/mv/side",
+    "top": "gtfrivolous:block/casings/voltage/mv/top"
+  }
+}

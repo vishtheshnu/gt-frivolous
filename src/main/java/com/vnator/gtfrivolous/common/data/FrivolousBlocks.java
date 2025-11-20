@@ -1,6 +1,5 @@
 package com.vnator.gtfrivolous.common.data;
 
-import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.common.data.models.GTModels;
 import com.gregtechceu.gtceu.data.recipe.CustomTags;
@@ -31,6 +30,7 @@ public class FrivolousBlocks {
             GTFrivolous.id("block/casings/solid/machine_casing_manasteel"));
 
     public static final BlockEntry<Block> MACHINE_CASING_MAGIC_LV = createMagicMachineCasingBlock(1);
+    public static final BlockEntry<Block> MACHINE_CASING_MAGIC_MV = createMagicMachineCasingBlock(2);
 
     public static BlockEntry<Block> createCasingBlock(String name, ResourceLocation texture) {
         return createCasingBlock(name, Block::new, texture, () -> Blocks.IRON_BLOCK,
@@ -55,12 +55,28 @@ public class FrivolousBlocks {
 
     private static BlockEntry<Block> createMagicMachineCasingBlock(int tier) {
         String tierName = GTValues.VN[tier].toLowerCase(Locale.ROOT);
+        String prefix = LoreText.PREFIXES[tier];
         return REGISTRATE
                 .block("%s_magic_machine_casing".formatted(tierName), Block::new)
-                .lang("%s Magic Machine Casing".formatted(GTValues.VN[tier]))
+                .lang("%s %s Machine Casing".formatted(GTValues.VN[tier], prefix))
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .properties(p -> p.isValidSpawn((state, level, pos, ent) -> false))
-                .blockstate(GTModels.createSidedCasingModel(GTFrivolous.id("block/casings/voltage/"+tierName)))
+                .blockstate(GTModels.createSidedCasingModel(GTFrivolous.id("block/casings/voltage/" + tierName)))
+                .tag(CustomTags.MINEABLE_WITH_CONFIG_VALID_PICKAXE_WRENCH)
+                .item(BlockItem::new)
+                .build()
+                .register();
+    }
+
+    private static BlockEntry<Block> createMagicMachineHullBlock(int tier) {
+        String tierName = GTValues.VN[tier].toLowerCase(Locale.ROOT);
+        String prefix = LoreText.PREFIXES[tier];
+        return REGISTRATE
+                .block("%s_magic_machine_casing".formatted(tierName), Block::new)
+                .lang("%s %s Machine Casing".formatted(GTValues.VN[tier], prefix))
+                .initialProperties(() -> Blocks.IRON_BLOCK)
+                .properties(p -> p.isValidSpawn((state, level, pos, ent) -> false))
+                .blockstate(GTModels.createSidedCasingModel(GTFrivolous.id("block/casings/voltage/" + tierName)))
                 .tag(CustomTags.MINEABLE_WITH_CONFIG_VALID_PICKAXE_WRENCH)
                 .item(BlockItem::new)
                 .build()

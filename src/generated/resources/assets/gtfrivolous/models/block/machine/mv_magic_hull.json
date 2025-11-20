@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:block/block",
+  "loader": "gtceu:machine",
+  "machine": "gtfrivolous:mv_magic_hull",
+  "replaceable_textures": [
+    "bottom",
+    "top",
+    "side"
+  ],
+  "variants": {
+    "is_formed=false": {
+      "model": {
+        "parent": "gtceu:block/machine/part/hull",
+        "textures": {
+          "bottom": "gtfrivolous:block/casings/voltage/mv/bottom",
+          "side": "gtfrivolous:block/casings/voltage/mv/side",
+          "top": "gtfrivolous:block/casings/voltage/mv/top"
+        }
+      }
+    },
+    "is_formed=true": {
+      "model": {
+        "parent": "gtceu:block/machine/part/hull",
+        "textures": {
+          "bottom": "gtfrivolous:block/casings/voltage/mv/bottom",
+          "side": "gtfrivolous:block/casings/voltage/mv/side",
+          "top": "gtfrivolous:block/casings/voltage/mv/top"
+        }
+      }
+    }
+  }
+}
