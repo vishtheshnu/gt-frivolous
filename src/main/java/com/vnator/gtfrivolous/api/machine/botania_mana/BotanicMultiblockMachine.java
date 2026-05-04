@@ -21,6 +21,7 @@ public class BotanicMultiblockMachine extends WorkableMultiblockMachine implemen
     @Override
     public void onStructureFormed() {
         super.onStructureFormed();
+        // Mana pool binding performed by the relevant hatch, not the machine itself anymore
         // getMultiblockState().getMatchContext().get()
         // for (var part : getParts()) {
         // part.addedToController();

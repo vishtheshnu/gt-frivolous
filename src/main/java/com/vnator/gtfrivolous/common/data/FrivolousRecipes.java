@@ -9,11 +9,17 @@ import java.util.function.Consumer;
 public class FrivolousRecipes {
 
     public static void init(Consumer<FinishedRecipe> provider) {
-        BotanicRecipes.init(provider);
+        // Vanilla
         MachineRecipes.init(provider);
         CraftingRecipes.init(provider);
 
+        // GT Machines
         AlloySmelterRecipes.init(provider);
         AssemblerRecipes.init(provider);
+
+        // Frivolous
+        BotanicRecipes.init(provider);
+        DirtSifterRecipes.init(provider);
+        StrainerRecipes.init(provider);
     }
 }

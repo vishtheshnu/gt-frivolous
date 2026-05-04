@@ -10,6 +10,20 @@ import com.lowdragmc.lowdraglib.gui.texture.ProgressTexture;
 public class FrivolousRecipeTypes {
     // TODO create custom textures and sounds for recipe types
 
+    // Custom
+    public static GTRecipeType STRAINER = GTRecipeTypes
+            .register("frivolous_strainer", GTRecipeTypes.ELECTRIC)
+            .setMaxIOSize(1, 9, 0, 0)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_SIFT, ProgressTexture.FillDirection.LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.BATH);
+
+    public static GTRecipeType DIRT_SIFTER = GTRecipeTypes
+            .register("frivolous_dirt_sifter", GTRecipeTypes.ELECTRIC)
+            .setMaxIOSize(1, 3, 0, 0)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_SIFT, ProgressTexture.FillDirection.LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.MINER);
+
+    // Botania
     public static GTRecipeType BOTANIA_PURITY_PROCESSOR = GTRecipeTypes
             .register("botania_purity_processor", GTRecipeTypes.MULTIBLOCK)
             .setMaxIOSize(1, 1, 0, 0)

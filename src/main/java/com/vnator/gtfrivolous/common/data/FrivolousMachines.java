@@ -29,6 +29,7 @@ import com.vnator.gtfrivolous.GTFrivolous;
 import com.vnator.gtfrivolous.api.machine.botania_mana.BotanicHatch;
 import com.vnator.gtfrivolous.api.machine.botania_mana.BotanicMachine;
 import com.vnator.gtfrivolous.api.machine.botania_mana.ManaPoolBindableMachine;
+import com.vnator.gtfrivolous.api.machine.frivolous.StrainerMachine;
 import com.vnator.gtfrivolous.api.machine.gtbridge.FrivolousRecipeTypes;
 import com.vnator.gtfrivolous.api.machine.multiblock.BotaniaWorkableMultiblockMachine;
 import com.vnator.gtfrivolous.api.machine.part.ManaPartAbility;
@@ -60,6 +61,43 @@ public class FrivolousMachines {
     static {
         REGISTRATE.creativeModeTab(() -> CreativeModeTabs.GT_FRIVOLOUS);
     }
+
+    /* Machines */
+    public static final MachineDefinition[] STRAINER = GTMachineUtils.registerTieredMachines(
+            REGISTRATE, "strainer",
+            (handler, tier) -> new StrainerMachine(handler, tier, Blocks.WATER),
+            (tier, builder) -> builder
+                    .langValue("Strainer")
+                    .editableUI(StrainerMachine.EDITABLE_UI_CREATOR.apply(GTCEu.id("strainer"),
+                            FrivolousRecipeTypes.STRAINER))
+                    .rotationState(RotationState.NON_Y_AXIS)
+                    .recipeType(FrivolousRecipeTypes.STRAINER)
+                    .recipeModifier(GTRecipeModifiers.OC_NON_PERFECT)
+                    .workableCasingModel(
+                            GTFrivolous.id("block/casings/voltage/lv/side"), // TODO replace with wood casing model,
+                                                                             // create wood machine textures
+                            GTCEu.id("block/machines/sifter"))
+                    .tooltips(new Component[] { Component.translatable("gtfrivolous.machine.strainer.tooltip") })
+                    .register(),
+            1);
+
+    public static final MachineDefinition[] DIRT_SIFTER = GTMachineUtils.registerTieredMachines(
+            REGISTRATE, "dirt_sifter",
+            (handler, tier) -> new StrainerMachine(handler, tier, Blocks.DIRT),
+            (tier, builder) -> builder
+                    .langValue("Dirt Sifter")
+                    .editableUI(StrainerMachine.EDITABLE_UI_CREATOR.apply(GTCEu.id("dift_sifter"),
+                            FrivolousRecipeTypes.DIRT_SIFTER))
+                    .rotationState(RotationState.NON_Y_AXIS)
+                    .recipeType(FrivolousRecipeTypes.DIRT_SIFTER)
+                    .recipeModifier(GTRecipeModifiers.OC_NON_PERFECT)
+                    .workableCasingModel(
+                            GTFrivolous.id("block/casings/voltage/lv/side"), // TODO replace with wood casing model,
+                                                                             // create wood machine textures
+                            GTCEu.id("block/machines/forge_hammer"))
+                    .tooltips(new Component[] { Component.translatable("gtfrivolous.machine.dirt_sifter.tooltip") })
+                    .register(),
+            1);
 
     /* Hatches */
     public static final MachineDefinition BOTANIA_MANA_HATCH = REGISTRATE

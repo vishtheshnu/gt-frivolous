@@ -1,4 +1,4 @@
-package com.vnator.gtfrivolous.mixin.botania;
+package com.vnator.gtfrivolous.mixins.botania;
 
 import com.gregtechceu.gtceu.api.blockentity.MetaMachineBlockEntity;
 

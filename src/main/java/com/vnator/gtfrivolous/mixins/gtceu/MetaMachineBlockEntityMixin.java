@@ -1,4 +1,4 @@
-package com.vnator.gtfrivolous.mixin.gtceu;
+package com.vnator.gtfrivolous.mixins.gtceu;
 
 import com.gregtechceu.gtceu.api.blockentity.MetaMachineBlockEntity;
 

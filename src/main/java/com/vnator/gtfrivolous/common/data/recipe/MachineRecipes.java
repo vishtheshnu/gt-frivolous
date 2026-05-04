@@ -6,6 +6,8 @@ import com.gregtechceu.gtceu.data.recipe.VanillaRecipeHelper;
 import com.gregtechceu.gtceu.data.recipe.misc.MetaTileEntityLoader;
 
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import com.vnator.gtfrivolous.common.data.FrivolousBlocks;
 import com.vnator.gtfrivolous.common.data.FrivolousMachines;
@@ -29,5 +31,13 @@ public class MachineRecipes {
         MetaTileEntityLoader.registerMachineRecipe(provider, false, FrivolousMachines.magicHulls, "PLP", "CHC", 'P',
                 HULL_PLATE, 'L', PLATE, 'C', CABLE,
                 'H', CASING);
+
+        MetaTileEntityLoader.registerMachineRecipe(provider, true, FrivolousMachines.STRAINER,
+                "PSP", "P P", "PPP",
+                'P', HULL_PLATE, 'S', new ItemStack(Items.STICK));
+
+        MetaTileEntityLoader.registerMachineRecipe(provider, true, FrivolousMachines.DIRT_SIFTER,
+                "PSP", "PCP", "PPP",
+                'P', HULL_PLATE, 'S', new ItemStack(Items.STICK), new ItemStack(Items.COBBLESTONE));
     }
 }
