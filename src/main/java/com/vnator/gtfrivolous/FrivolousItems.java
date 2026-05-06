@@ -20,6 +20,13 @@ public class FrivolousItems {
         REGISTRATE.creativeModeTab(() -> CreativeModeTabs.GT_FRIVOLOUS);
     }
 
+    public static final ItemEntry<ComponentItem> LEAF_MESH = REGISTRATE
+            .item("leaf_mesh", ComponentItem::create)
+            .lang("Leaf Mesh")
+            .tag()
+            .defaultModel()
+            .register();
+
     public static final ItemEntry<ComponentItem> LV_BOTANIC_CIRCUIT = REGISTRATE
             .item("circuit_botanic_lv", ComponentItem::create)
             .lang("LV Botanic Circuit")

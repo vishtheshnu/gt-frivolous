@@ -1,6 +1,7 @@
 package com.vnator.gtfrivolous.common.data.materials;
 
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
+import com.gregtechceu.gtceu.api.data.chemical.material.properties.BlastProperty;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 
 import com.vnator.gtfrivolous.GTFrivolous;
@@ -23,7 +24,10 @@ public class FrivolousMaterials {
                 .color(0x4679f4).secondaryColor(0xffffff)
                 .register();
         TERRA_STEEL = new Material.Builder(GTFrivolous.id("terrasteel"))
-                .ingot()
+                .dust()
+                .blast((builder) -> builder
+                        .temp(1700, BlastProperty.GasTier.LOW)
+                        .blastStats(120, 800))
                 .ignoredTagPrefixes()
                 .liquid()
                 .formula("MsBeC")

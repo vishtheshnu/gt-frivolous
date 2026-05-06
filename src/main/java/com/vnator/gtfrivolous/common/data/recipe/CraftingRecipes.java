@@ -6,6 +6,7 @@ import com.gregtechceu.gtceu.common.data.GTItems;
 import com.gregtechceu.gtceu.data.recipe.VanillaRecipeHelper;
 
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.world.item.Items;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 
@@ -18,10 +19,14 @@ import static com.vnator.gtfrivolous.common.data.materials.FrivolousMaterials.*;
 public class CraftingRecipes {
 
     public static void init(Consumer<FinishedRecipe> provider) {
+        VanillaRecipeHelper.addShapedRecipe(provider, "leaf_mesh", LEAF_MESH.asStack(),
+                "SLS", "LLL", "SLS",
+                'S', Items.STICK, 'L', Items.OAK_LEAVES);
+
         VanillaRecipeHelper.addShapedRecipe(provider, "botanic_circuit", LV_BOTANIC_CIRCUIT.asStack(),
                 "RPR", "VBV", "WWW", 'R', GTItems.RESISTOR, 'P', new MaterialEntry(TagPrefix.plate, MANA_STEEL),
                 'V', MANAGLASS_VACUUM_TUBE, 'B', LIVINGWOOD_PRINTED_CIRCUIT_BOARD, 'W',
-                new MaterialEntry(TagPrefix.wireGtSingle, RedAlloy));
+                new MaterialEntry(TagPrefix.cableGtSingle, RedAlloy));
 
         VanillaRecipeHelper.addShapedRecipe(provider, "managlass_tube", MANAGLASS_TUBE.asStack(),
                 "PPP", "P P", "PPP", 'P', BotaniaBlocks.managlassPane.asItem());
