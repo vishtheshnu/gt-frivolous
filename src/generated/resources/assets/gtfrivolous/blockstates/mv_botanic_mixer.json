@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "gtfrivolous:block/machine/mv_botanic_mixer",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "gtfrivolous:block/machine/mv_botanic_mixer"
+    },
+    "facing=south": {
+      "model": "gtfrivolous:block/machine/mv_botanic_mixer",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "gtfrivolous:block/machine/mv_botanic_mixer",
+      "y": 270
+    }
+  }
+}

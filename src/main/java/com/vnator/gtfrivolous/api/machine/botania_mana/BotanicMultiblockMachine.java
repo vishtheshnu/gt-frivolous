@@ -19,22 +19,6 @@ public class BotanicMultiblockMachine extends WorkableMultiblockMachine implemen
     }
 
     @Override
-    public void onStructureFormed() {
-        super.onStructureFormed();
-        // Mana pool binding performed by the relevant hatch, not the machine itself anymore
-        // getMultiblockState().getMatchContext().get()
-        // for (var part : getParts()) {
-        // part.addedToController();
-        // }
-
-        // Confirm one of the structure blocks' entities is instanceof ManaPool
-        // If so, save it, have it hooked up to the ManaConsumable methods, and construct and save
-        // ManaEnergyRecipeHandler
-
-        // Otherwise if missing, call onStructureInvalid()
-    }
-
-    @Override
     public void addDisplayText(List<Component> textList) {
         IDisplayUIMachine.super.addDisplayText(textList);
     }

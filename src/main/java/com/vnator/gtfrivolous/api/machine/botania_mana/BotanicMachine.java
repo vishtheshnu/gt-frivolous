@@ -1,5 +1,6 @@
 package com.vnator.gtfrivolous.api.machine.botania_mana;
 
+import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeHandlerList;
@@ -38,6 +39,16 @@ public class BotanicMachine extends ManaPoolBindableMachine {
     public BotanicMachine(IMachineBlockEntity holder, int tier) {
         super(holder, tier);
         maxMana = 1000 * (int) Math.pow(4, tier);
+    }
+
+    @Override
+    public int getMaxOverclockTier() {
+        return tier;
+    }
+
+    @Override
+    public long getOverclockVoltage() {
+        return Math.min(GTValues.V[getOverclockTier()], GTValues.V[getMaxOverclockTier()]);
     }
 
     @Override

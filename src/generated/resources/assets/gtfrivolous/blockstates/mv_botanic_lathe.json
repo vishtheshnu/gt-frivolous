@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "gtfrivolous:block/machine/mv_botanic_lathe",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "gtfrivolous:block/machine/mv_botanic_lathe"
+    },
+    "facing=south": {
+      "model": "gtfrivolous:block/machine/mv_botanic_lathe",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "gtfrivolous:block/machine/mv_botanic_lathe",
+      "y": 270
+    }
+  }
+}

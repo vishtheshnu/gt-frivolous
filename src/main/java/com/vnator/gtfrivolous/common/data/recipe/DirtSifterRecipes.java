@@ -15,7 +15,9 @@ public class DirtSifterRecipes {
             Items.COBBLESTONE,
             Items.ANDESITE,
             Items.GRANITE,
-            Items.DIORITE);
+            Items.DIORITE,
+            Items.NETHERRACK,
+            Items.DIRT);
 
     public static void init(Consumer<FinishedRecipe> provider) {
         siftingBlocks.forEach(block -> DIRT_SIFTER

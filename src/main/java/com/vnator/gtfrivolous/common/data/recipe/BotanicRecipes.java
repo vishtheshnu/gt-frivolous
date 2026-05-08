@@ -109,5 +109,6 @@ public class BotanicRecipes {
         ORECHID_IO.put(Items.ANDESITE, List.of(Sphalerite, Pyrite, Sulfur));
         ORECHID_IO.put(Items.GRAVEL, List.of(Coal, Graphite, Diamond));
         ORECHID_IO.put(Items.SAND, List.of(Redstone, Ruby, Cinnabar));
+        ORECHID_IO.put(Items.COBBLESTONE, List.of(Sphalerite, Nickel, Cobaltite, Realgar));
     }
 }

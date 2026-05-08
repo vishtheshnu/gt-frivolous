@@ -3,14 +3,14 @@
   "loader": "gtceu:machine",
   "machine": "gtfrivolous:mv_botanic_centrifuge",
   "texture_overrides": {
-    "all": "gtfrivolous:block/casings/voltage/lv/side"
+    "all": "gtfrivolous:block/casings/voltage/mv/side"
   },
   "variants": {
     "recipe_logic_status=idle": {
       "model": {
         "parent": "gtceu:block/machine/template/cube_all/sided",
         "textures": {
-          "all": "gtfrivolous:block/casings/voltage/lv/side",
+          "all": "gtfrivolous:block/casings/voltage/mv/side",
           "overlay_back": "gtceu:block/machines/centrifuge/overlay_back",
           "overlay_front": "gtceu:block/machines/centrifuge/overlay_front",
           "overlay_side": "gtceu:block/machines/centrifuge/overlay_side",
@@ -22,7 +22,7 @@
       "model": {
         "parent": "gtceu:block/machine/template/cube_all/sided",
         "textures": {
-          "all": "gtfrivolous:block/casings/voltage/lv/side",
+          "all": "gtfrivolous:block/casings/voltage/mv/side",
           "overlay_back": "gtceu:block/machines/centrifuge/overlay_back",
           "overlay_front": "gtceu:block/machines/centrifuge/overlay_front",
           "overlay_side": "gtceu:block/machines/centrifuge/overlay_side",
@@ -34,7 +34,7 @@
       "model": {
         "parent": "gtceu:block/machine/template/cube_all/sided",
         "textures": {
-          "all": "gtfrivolous:block/casings/voltage/lv/side",
+          "all": "gtfrivolous:block/casings/voltage/mv/side",
           "overlay_back": "gtceu:block/machines/centrifuge/overlay_back_active",
           "overlay_front": "gtceu:block/machines/centrifuge/overlay_front_active",
           "overlay_side": "gtceu:block/machines/centrifuge/overlay_side_active",
@@ -46,7 +46,7 @@
       "model": {
         "parent": "gtceu:block/machine/template/cube_all/sided",
         "textures": {
-          "all": "gtfrivolous:block/casings/voltage/lv/side",
+          "all": "gtfrivolous:block/casings/voltage/mv/side",
           "overlay_back": "gtceu:block/machines/centrifuge/overlay_back_active",
           "overlay_front": "gtceu:block/machines/centrifuge/overlay_front_active",
           "overlay_side": "gtceu:block/machines/centrifuge/overlay_side_active",

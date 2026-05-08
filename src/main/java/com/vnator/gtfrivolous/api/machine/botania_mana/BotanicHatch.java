@@ -1,8 +1,10 @@
 package com.vnator.gtfrivolous.api.machine.botania_mana;
 
+import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.multiblock.part.TieredIOPartMachine;
+import com.gregtechceu.gtceu.common.machine.multiblock.part.EnergyHatchPartMachine;
 
 import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
@@ -31,7 +33,7 @@ import vazkii.botania.common.helper.MathHelper;
 
 import java.util.Objects;
 
-public class BotanicHatch extends TieredIOPartMachine implements WandBindable, ManaConsumer {
+public class BotanicHatch extends EnergyHatchPartMachine implements WandBindable, ManaConsumer {
 
     private static final int BINDING_RADIUS_BASE = 10;
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
@@ -50,9 +52,10 @@ public class BotanicHatch extends TieredIOPartMachine implements WandBindable, M
     @DescSynced
     protected @Nullable BlockPos bindingPos;
 
-    public BotanicHatch(IMachineBlockEntity holder, int tier, IO io) {
-        super(holder, tier, io);
+    public BotanicHatch(IMachineBlockEntity holder, int tier, IO io, int ampEquivalent) {
+        super(holder, tier, io, ampEquivalent);
         maxMana = 1000 * (int) Math.pow(4, tier);
+        energyContainer.resetBasicInfo(0, GTValues.VEX[tier], 0, GTValues.VEX[tier], ampEquivalent);
     }
 
     @Override

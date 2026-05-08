@@ -4,6 +4,9 @@ import com.gregtechceu.gtceu.api.data.chemical.material.Material;
 import com.gregtechceu.gtceu.api.data.chemical.material.properties.BlastProperty;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
 
+import com.gregtechceu.gtceu.api.fluids.FluidBuilder;
+import com.gregtechceu.gtceu.api.fluids.FluidState;
+import com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys;
 import com.vnator.gtfrivolous.GTFrivolous;
 import vazkii.botania.common.item.BotaniaItems;
 
@@ -13,6 +16,8 @@ public class FrivolousMaterials {
 
     public static Material MANA_STEEL;
     public static Material TERRA_STEEL;
+
+    public static Material MAGICAL_BIOMASS;
 
     public static void register() {
         MANA_STEEL = new Material.Builder(GTFrivolous.id("manasteel"))
@@ -35,6 +40,12 @@ public class FrivolousMaterials {
                 .flags(GENERATE_PLATE, GENERATE_ROD, GENERATE_FRAME, GENERATE_BOLT_SCREW)
                 .color(0x336f2e).secondaryColor(0xffffff)
                 .register();
+
+        MAGICAL_BIOMASS = new Material.Builder(GTFrivolous.id("magical_biomass"))
+                .fluid(FluidStorageKeys.LIQUID, new FluidBuilder()
+                        .state(FluidState.LIQUID)
+                        .color(0x8aedff))
+                .register();
     }
 
     /**
@@ -42,5 +53,6 @@ public class FrivolousMaterials {
      */
     public static void modify() {
         TagPrefix.ingot.setIgnored(MANA_STEEL, () -> BotaniaItems.manaSteel);
+        TagPrefix.ingot.setIgnored(TERRA_STEEL, () -> BotaniaItems.terrasteel);
     }
 }

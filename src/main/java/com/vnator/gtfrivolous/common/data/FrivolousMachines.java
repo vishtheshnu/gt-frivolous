@@ -38,10 +38,7 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static com.gregtechceu.gtceu.api.GTValues.VN;
@@ -62,7 +59,7 @@ public class FrivolousMachines {
         REGISTRATE.creativeModeTab(() -> CreativeModeTabs.GT_FRIVOLOUS);
     }
 
-    /* Machines */
+    /* Custom Machines */
     public static final MachineDefinition[] STRAINER = GTMachineUtils.registerTieredMachines(
             REGISTRATE, "strainer",
             (handler, tier) -> new StrainerMachine(handler, tier, Blocks.WATER),
@@ -101,14 +98,14 @@ public class FrivolousMachines {
 
     /* Hatches */
     public static final MachineDefinition BOTANIA_MANA_HATCH = REGISTRATE
-            .machine("mana_hatch", (holder) -> new BotanicHatch(holder, GTValues.LV, IO.IN))
+            .machine("mana_hatch", (holder) -> new BotanicHatch(holder, GTValues.LV, IO.IN, 2))
             .langValue("Mana Hatch")
             .rotationState(RotationState.ALL)
             .tier(GTValues.LV)
             .modelProperty(IS_FORMED, false)
             .colorOverlayTieredHullModel(GTCEu.id("block/overlay/machine/overlay_pipe_in_emissive"), null,
                     GTCEu.id("block/overlay/machine/" + OVERLAY_ITEM_HATCH))
-            .abilities(ManaPartAbility.MANA_HATCH)
+            .abilities(ManaPartAbility.MANA_HATCH, PartAbility.INPUT_ENERGY)
             .register();
 
     /* Multiblocks */
@@ -212,7 +209,7 @@ public class FrivolousMachines {
             .tooltips(Component.translatable("gtfrivolous.multiblock.botania.balanced_clayworks.tooltip"))
             .register();
 
-    /* Machines */
+    /* GT Machine Variants */
     public static final MachineDefinition[] magicHulls = GTMachineUtils.registerTieredMachines(
             REGISTRATE, "magic_hull", HullMachine::new,
             (tier, builder) -> builder
@@ -224,21 +221,35 @@ public class FrivolousMachines {
                     .register(),
             1, 2);
 
-    public static final MachineDefinition[] botanicCentrifuge = GTMachineUtils.registerTieredMachines(
-            REGISTRATE, "botanic_centrifuge",
-            BotanicMachine::new,
-            (tier, builder) -> builder
-                    .langValue("Botanic Centrifuge %s".formatted(GTValues.LVT[tier]))
-                    .editableUI(BotanicMachine.EDITABLE_UI_CREATOR.apply(GTCEu.id("centrifuge"),
-                            GTRecipeTypes.CENTRIFUGE_RECIPES))
-                    .rotationState(RotationState.NON_Y_AXIS)
-                    .recipeType(GTRecipeTypes.CENTRIFUGE_RECIPES)
-                    .recipeModifier(GTRecipeModifiers.OC_NON_PERFECT)
-                    .workableCasingModel(GTFrivolous.id("block/casings/voltage/lv/side"),
-                            GTCEu.id("block/machines/centrifuge"))
-                    .tooltips(tooltipsBotanic(tier, GTRecipeTypes.CENTRIFUGE_RECIPES, true))
-                    .register(),
+    public static final MachineDefinition[] botanicCentrifuge = generateBotanicMachines("centrifuge",
+            GTRecipeTypes.CENTRIFUGE_RECIPES, 1, 2);
+    public static final MachineDefinition[] botanicAlloySmelter = generateBotanicMachines("alloy_smelter",
+            GTRecipeTypes.ALLOY_SMELTER_RECIPES, 1, 2);
+    public static final MachineDefinition[] botanicAssembler = generateBotanicMachines("assembler",
+            GTRecipeTypes.ASSEMBLER_RECIPES, 1, 2);
+    public static final MachineDefinition[] botanicBender = generateBotanicMachines("bender",
+            GTRecipeTypes.BENDER_RECIPES, 1, 2);
+    public static final MachineDefinition[] botanicChemicalReactor = generateBotanicMachines("chemical_reactor",
+            GTRecipeTypes.CHEMICAL_RECIPES, 1, 2);
+    public static final MachineDefinition[] botanicCompressor = generateBotanicMachines("compressor",
+            GTRecipeTypes.COMPRESSOR_RECIPES, 1, 2);
+    public static final MachineDefinition[] botanicElectrolyzer = generateBotanicMachines("electrolyzer",
+            GTRecipeTypes.ELECTROLYZER_RECIPES, 1, 2);
+    public static final MachineDefinition[] botanicFermenter = generateBotanicMachines("fermenter",
+            GTRecipeTypes.FERMENTING_RECIPES, 1, 2);
+    public static final MachineDefinition[] botanicLathe = generateBotanicMachines("lathe", GTRecipeTypes.LATHE_RECIPES,
             1, 2);
+    public static final MachineDefinition[] botanicMixer = generateBotanicMachines("mixer", GTRecipeTypes.MIXER_RECIPES,
+            1, 2);
+    public static final MachineDefinition[] botanicPolarizer = generateBotanicMachines("polarizer",
+            GTRecipeTypes.POLARIZER_RECIPES, 1, 2);
+    public static final MachineDefinition[] botanicWiremill = generateBotanicMachines("wiremill",
+            GTRecipeTypes.WIREMILL_RECIPES, 1, 2);
+
+    public static final List<MachineDefinition[]> botanicMachines = List.of(
+            botanicCentrifuge, botanicAlloySmelter, botanicAssembler, botanicBender, botanicChemicalReactor,
+            botanicCompressor, botanicElectrolyzer, botanicFermenter, botanicLathe, botanicMixer,
+            botanicPolarizer, botanicWiremill);
 
     public static Component[] tooltipsBotanic(int tier, GTRecipeType recipeType, boolean input) {
         List<Component> tooltipComponents = new ArrayList<>();
@@ -247,8 +258,10 @@ public class FrivolousMachines {
     }
 
     public static void registerBotaniaWandHudCaps(BotaniaBlockEntities.BECapConsumer<WandHUD> consumer) {
-        consumer.accept(be -> new ManaPoolBindableMachine.BindableMachineWandHud<>(extractBotanicMachineFromEntity(be)),
-                getBlockEntityTypes(botanicCentrifuge));
+        botanicMachines.forEach(botanicMachine -> consumer
+                .accept(be -> new ManaPoolBindableMachine.BindableMachineWandHud<>(extractBotanicMachineFromEntity(be)),
+                        getBlockEntityTypes(botanicMachine)));
+
         consumer.accept(be -> new BotanicHatch.BindableMachineWandHud<>(extractBotanicHatchFromEntity(be)),
                 BOTANIA_MANA_HATCH.getBlockEntityType());
     }
@@ -278,6 +291,30 @@ public class FrivolousMachines {
 
             builder.addReplaceableTextures("bottom", "top", "side");
         };
+    }
+
+    private static MachineDefinition[] generateBotanicMachines(String name, GTRecipeType recipeType, int... tiers) {
+        String caps = Arrays.stream(name.split("_"))
+                .map(str -> str.substring(0, 1).toUpperCase(Locale.ROOT) + str.substring(1))
+                .reduce("", (a, b) -> a + " " + b)
+                .trim();
+        return GTMachineUtils.registerTieredMachines(
+                REGISTRATE, "botanic_" + name,
+                BotanicMachine::new,
+                (tier, builder) -> builder
+                        .tier(tier)
+                        .langValue("Botanic %s %s".formatted(caps, GTValues.LVT[tier]))
+                        .editableUI(BotanicMachine.EDITABLE_UI_CREATOR.apply(GTCEu.id(name),
+                                recipeType))
+                        .rotationState(RotationState.NON_Y_AXIS)
+                        .recipeType(recipeType)
+                        .recipeModifier(GTRecipeModifiers.OC_NON_PERFECT)
+                        .workableCasingModel(
+                                GTFrivolous.id("block/casings/voltage/" + VN[tier].toLowerCase(Locale.ROOT) + "/side"),
+                                GTCEu.id("block/machines/" + name))
+                        .tooltips(tooltipsBotanic(tier, recipeType, true))
+                        .register(),
+                tiers);
     }
 
     public static void init() {}
