@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 
+import com.klikli_dev.occultism.registry.OccultismBlocks;
 import com.vnator.gtfrivolous.GTFrivolous;
 import com.vnator.gtfrivolous.api.machine.botania_mana.BotanicHatch;
 import com.vnator.gtfrivolous.api.machine.botania_mana.BotanicMachine;
@@ -54,6 +55,8 @@ public class FrivolousMachines {
 
     private static final String BOTANIC_MACHINE_TOOLTIP = "gtfrivolous.machine.botanic";
     private static final ResourceLocation LIVINGROCK_CASE = GTFrivolous.id("block/casings/solid/livingrock");
+    private static final ResourceLocation OTHERSTEEL_CASE = GTFrivolous
+            .id("block/casings/solid/machine_casing_othersteel");
 
     static {
         REGISTRATE.creativeModeTab(() -> CreativeModeTabs.GT_FRIVOLOUS);
@@ -207,6 +210,38 @@ public class FrivolousMachines {
                     LIVINGROCK_CASE,
                     GTCEu.id("block/machines/ore_washer")))
             .tooltips(Component.translatable("gtfrivolous.multiblock.botania.balanced_clayworks.tooltip"))
+            .register();
+
+    public static final MultiblockMachineDefinition OCCULTISM_SPIRIT_INFUSER = REGISTRATE
+            .multiblock("occultism_spirit_infuser", BotaniaWorkableMultiblockMachine::new)
+            .rotationState(RotationState.NON_Y_AXIS)
+            .appearanceBlock(OccultismBlocks.OTHERSTONE)
+            .recipeType(FrivolousRecipeTypes.OCCULTISM_MICRO_RITUAL_CHAMBER)
+            .pattern(definition -> FactoryBlockPattern.start()
+                    .aisle("###S###", "###P###", "###S###", "###R###")
+                    .aisle("##SSS##", "##P#P##", "##SSS##", "##VCV##")
+                    .aisle("#SSSSS#", "#P###P#", "#SSSSS#", "#VYWYV#")
+                    .aisle("SSSSSSS", "P#####P", "SSSSSSS", "RCW#WCR")
+                    .aisle("#SSSSS#", "#P###P#", "#SSSSS#", "#VYWYV#")
+                    .aisle("##SSS##", "##P#P##", "##SSS##", "##VCV##")
+                    .aisle("###S###", "###~###", "###S###", "###R###")
+                    .where('#', Predicates.any())
+                    .where('S', Predicates.blocks(OccultismBlocks.OTHERSTONE.get()))
+                    .where('P', Predicates.blocks(OccultismBlocks.OTHERSTONE.get())
+                            .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setPreviewCount(1))
+                            .or(Predicates.abilities(PartAbility.EXPORT_ITEMS).setPreviewCount(1))
+                            .or(Predicates.abilities(ManaPartAbility.MANA_HATCH).setPreviewCount(1)))
+                    .where('~', Predicates.controller(Predicates.blocks(definition.getBlock())))
+                    .where('R', Predicates.blocks(OccultismBlocks.CHALK_GLYPH_RED.get()))
+                    .where('V', Predicates.blocks(OccultismBlocks.CHALK_GLYPH_PURPLE.get()))
+                    .where('Y', Predicates.blocks(OccultismBlocks.CHALK_GLYPH_GOLD.get()))
+                    .where('W', Predicates.blocks(OccultismBlocks.CHALK_GLYPH_WHITE.get()))
+                    .where('C', Predicates.blocks(OccultismBlocks.SPIRIT_ATTUNED_CRYSTAL.get()))
+                    .build())
+            .model(GTMachineModels.createWorkableCasingMachineModel(
+                    OTHERSTEEL_CASE,
+                    GTCEu.id("block/machines/ore_washer")))
+            .tooltips(Component.translatable("gtfrivolous.multiblock.occultism.spirit_infuser.tooltip"))
             .register();
 
     /* GT Machine Variants */

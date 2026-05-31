@@ -47,5 +47,11 @@ public class FrivolousRecipeTypes {
             .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, ProgressTexture.FillDirection.LEFT_TO_RIGHT)
             .setSound(GTSoundEntries.BATH);
 
+    public static GTRecipeType OCCULTISM_MICRO_RITUAL_CHAMBER = GTRecipeTypes
+            .register("occultism_micro_ritual_chamber", GTRecipeTypes.MULTIBLOCK)
+            .setMaxIOSize(6, 1, 3, 1)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, ProgressTexture.FillDirection.LEFT_TO_RIGHT)
+            .setSound(GTSoundEntries.BATH);
+
     public static void init() {}
 }

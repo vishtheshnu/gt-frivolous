@@ -27,16 +27,64 @@ public class FrivolousItems {
             .defaultModel()
             .register();
 
+    // Circuits
+
     public static final ItemEntry<ComponentItem> LV_BOTANIC_CIRCUIT = REGISTRATE
             .item("circuit_botanic_lv", ComponentItem::create)
-            .lang("LV Botanic Circuit")
+            .lang("Botanic Circuit")
             .tag(CustomTags.LV_CIRCUITS)
             .onRegister(attach(new TooltipBehavior(tooltips -> {
                 tooltips.add(Component.translatable("gtfrivolous.lore.circuit_botanic_lv.0"));
-                tooltips.add(Component.translatable("gtfrivolous.lore.circuit_botanic_lv.1"));
+                tooltips.add(Component.translatable("gtfrivolous.lore.circuit_lv"));
             })))
             .defaultModel()
             .register();
+
+    public static final ItemEntry<ComponentItem> LV_BOTANIC_PROCESSOR = REGISTRATE
+            .item("circuit_botanic_mv", ComponentItem::create)
+            .lang("Botanic Processor")
+            .tag(CustomTags.MV_CIRCUITS)
+            .onRegister(attach(new TooltipBehavior(tooltips -> {
+                tooltips.add(Component.translatable("gtfrivolous.lore.circuit_botanic_mv.0"));
+                tooltips.add(Component.translatable("gtfrivolous.lore.circuit_mv"));
+            })))
+            .defaultModel()
+            .register();
+
+    public static final ItemEntry<ComponentItem> LV_SPIRIT_CIRCUIT = REGISTRATE
+            .item("circuit_spirit_lv", ComponentItem::create)
+            .lang("Spirit Circuit")
+            .tag(CustomTags.LV_CIRCUITS)
+            .onRegister(attach(new TooltipBehavior(tooltips -> {
+                tooltips.add(Component.translatable("gtfrivolous.lore.circuit_spirit"));
+                tooltips.add(Component.translatable("gtfrivolous.lore.circuit_lv"));
+            })))
+            .defaultModel()
+            .register();
+
+    public static final ItemEntry<ComponentItem> LV_SPIRIT_PROCESSOR = REGISTRATE
+            .item("circuit_spirit_mv", ComponentItem::create)
+            .lang("Spirit Processor")
+            .tag(CustomTags.MV_CIRCUITS)
+            .onRegister(attach(new TooltipBehavior(tooltips -> {
+                tooltips.add(Component.translatable("gtfrivolous.lore.circuit_spirit"));
+                tooltips.add(Component.translatable("gtfrivolous.lore.circuit_mv"));
+            })))
+            .defaultModel()
+            .register();
+
+    public static final ItemEntry<ComponentItem> LV_SPIRIT_ASSEMBLY = REGISTRATE
+            .item("circuit_spirit_hv", ComponentItem::create)
+            .lang("Spirit Assembly")
+            .tag(CustomTags.HV_CIRCUITS)
+            .onRegister(attach(new TooltipBehavior(tooltips -> {
+                tooltips.add(Component.translatable("gtfrivolous.lore.circuit_spirit"));
+                tooltips.add(Component.translatable("gtfrivolous.lore.circuit_hv"));
+            })))
+            .defaultModel()
+            .register();
+
+    // Circuitry Components
 
     public static final ItemEntry<ComponentItem> LIVINGWOOD_CIRCUIT_BOARD = REGISTRATE
             .item("livingwood_circuit_board", ComponentItem::create)
@@ -62,6 +110,13 @@ public class FrivolousItems {
     public static final ItemEntry<ComponentItem> MANAGLASS_TUBE = REGISTRATE
             .item("managlass_tube", ComponentItem::create)
             .lang("Managlass Tube")
+            .tag()
+            .defaultModel()
+            .register();
+
+    public static final ItemEntry<ComponentItem> MYSTICAL_PETAL_MULCH = REGISTRATE
+            .item("mystical_petal_mulch", ComponentItem::create)
+            .lang("Mystical Petal Mulch")
             .tag()
             .defaultModel()
             .register();

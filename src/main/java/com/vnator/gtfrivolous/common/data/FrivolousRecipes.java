@@ -16,10 +16,15 @@ public class FrivolousRecipes {
         // GT Machines
         AlloySmelterRecipes.init(provider);
         AssemblerRecipes.init(provider);
+        BreweryRecipes.init(provider);
+        ChemicalReactorRecipes.init(provider);
+        FermenterRecipes.init(provider);
+        MaceratorRecipes.init(provider);
 
         // Frivolous
         BotanicRecipes.init(provider);
         DirtSifterRecipes.init(provider);
         StrainerRecipes.init(provider);
+        OccultismRecipes.init(provider);
     }
 }

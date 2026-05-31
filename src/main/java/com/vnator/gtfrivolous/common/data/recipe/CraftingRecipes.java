@@ -2,18 +2,25 @@ package com.vnator.gtfrivolous.common.data.recipe;
 
 import com.gregtechceu.gtceu.api.data.chemical.material.stack.MaterialEntry;
 import com.gregtechceu.gtceu.api.data.tag.TagPrefix;
+import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
 import com.gregtechceu.gtceu.common.data.GTItems;
+import com.gregtechceu.gtceu.data.recipe.CustomTags;
 import com.gregtechceu.gtceu.data.recipe.VanillaRecipeHelper;
 
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
+import vazkii.botania.common.item.BotaniaItems;
 
 import java.util.function.Consumer;
 
 import static com.gregtechceu.gtceu.common.data.GTMaterials.*;
 import static com.vnator.gtfrivolous.FrivolousItems.*;
+import static com.vnator.gtfrivolous.common.data.FrivolousMachines.*;
 import static com.vnator.gtfrivolous.common.data.materials.FrivolousMaterials.*;
 
 public class CraftingRecipes {
@@ -42,5 +49,32 @@ public class CraftingRecipes {
                 "RRR", "WWW", "RRR", 'R', GTItems.STICKY_RESIN, 'W', BotaniaBlocks.livingwoodPlanks.asItem());
         VanillaRecipeHelper.addShapelessRecipe(provider, "livingwood_board_single", LIVINGWOOD_CIRCUIT_BOARD.asStack(),
                 BotaniaBlocks.livingwoodPlanks.asItem(), GTItems.STICKY_RESIN, GTItems.STICKY_RESIN);
+
+        createBotaniaMultiRecipe(BOTANIA_PURITY_PROCESSOR, BotaniaFlowerBlocks.pureDaisy, provider);
+        createBotaniaMultiRecipe(BOTANIA_BALANCED_CLAYWORKS, BotaniaFlowerBlocks.clayconia, provider);
+        createBotaniaMultiRecipe(BOTANIA_MAGICAL_GREENHOUSE, BotaniaFlowerBlocks.agricarnation, provider);
+        createBotaniaMultiRecipe(BOTANIA_ORECHID_MEGACONVERTER, BotaniaFlowerBlocks.orechid, provider);
+
+        VanillaRecipeHelper.addShapedRecipe(provider, "agglomeration_plate",
+                new ItemStack(BotaniaBlocks.terraPlate.asItem()),
+                "CCC", "WSF", "EMA",
+                'C', new MaterialEntry(TagPrefix.block, Cobalt),
+                'S', BotaniaBlocks.manasteelBlock.asItem(),
+                'W', BotaniaItems.runeWater,
+                'F', BotaniaItems.runeFire,
+                'E', BotaniaItems.runeEarth,
+                'M', BotaniaItems.runeMana,
+                'A', BotaniaItems.runeAir);
+    }
+
+    private static void createBotaniaMultiRecipe(MultiblockMachineDefinition machine, Block flower,
+                                                 Consumer<FinishedRecipe> provider) {
+        VanillaRecipeHelper.addShapedRecipe(provider, machine.getName(), machine.asStack(),
+                "LRL", "MFM", "LCL",
+                'L', BotaniaBlocks.livingrock.asItem(),
+                'R', BotaniaItems.runeMana,
+                'M', BotaniaItems.manaSteel,
+                'F', flower.asItem(),
+                'C', CustomTags.LV_CIRCUITS);
     }
 }

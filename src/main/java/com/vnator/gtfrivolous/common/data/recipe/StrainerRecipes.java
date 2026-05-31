@@ -25,5 +25,12 @@ public class StrainerRecipes {
                 .EUt(0)
                 .duration(100)
                 .save(provider);
+
+        STRAINER.recipeBuilder("fill_bucket")
+                .inputItems(Items.BUCKET)
+                .outputItems(Items.WATER_BUCKET)
+                .EUt(0)
+                .duration(200)
+                .save(provider);
     }
 }

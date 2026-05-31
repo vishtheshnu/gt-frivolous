@@ -28,6 +28,8 @@ public class FrivolousBlocks {
 
     public static final BlockEntry<Block> CASING_MANASTEEL = createCasingBlock("manasteel_machine_casing",
             GTFrivolous.id("block/casings/solid/machine_casing_manasteel"));
+    public static final BlockEntry<Block> CASING_OTHERSTEEL = createCasingBlock("othersteel_machine_casing",
+            GTFrivolous.id("block/casings/solid/machine_casing_othersteel"));
 
     public static final BlockEntry<Block> MACHINE_CASING_MAGIC_LV = createMagicMachineCasingBlock(1);
     public static final BlockEntry<Block> MACHINE_CASING_MAGIC_MV = createMagicMachineCasingBlock(2);
